@@ -163,5 +163,27 @@ export const theme = {
     coolGray9: "#EFEFF5",
     coolGray10: "#F5F5FA",
     coolGray11: "#F7F7FF",
+
+    // Category Colors -> 카테고리 지정 색상
+    category: {
+      red: "#FFD8DA",
+      redText: "#FF8080",
+      redTag: "#FFE4E5",
+
+      yellow: "#FFE8C9",
+      yellowText: "#FEB44F",
+      yellowTag: "#FFEACE",
+
+      green: "#D4F3DD",
+      greenText: "#88D49D",
+      greenTag: "#E0F5E6",
+
+      blue: "#D9E2FF",
+      blueText: "#86A1F9",
+      blueTag: "#E5EBFF",
+
+      purple: "#F0E4FF",
+      purpleText: "#BA91EE",
+    },
   },
 };
