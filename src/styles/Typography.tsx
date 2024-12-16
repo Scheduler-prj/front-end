@@ -3,7 +3,7 @@ import styled, {css} from "styled-components";
 const BaseTypography = styled.p`
     margin: 0;
     padding: 0;
-    font-family: "Arial, sans-serif";
+    font-family: "Pretendard", "Arial, sans-serif";
 `;
 
 // Mixin: font-weight 설정
