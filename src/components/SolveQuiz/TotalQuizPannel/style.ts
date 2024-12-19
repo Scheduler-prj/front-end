@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const TotalQuizPannelWrapper = styled.div`
-  width: 320px;
+  width: 23.4%;
   background-color: ${({ theme }) => theme.colors.coolGray9};
   padding: 36px 32px;
   border-radius: 24px;
