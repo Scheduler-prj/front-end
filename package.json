@@ -1,5 +1,4 @@
 {
-  "name": "front-end",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -46,5 +45,9 @@
   "devDependencies": {
     "@types/react-router-dom": "^5.3.3",
     "@types/styled-components": "^5.1.34"
-  }
+  },
+  "main": "index.js",
+  "repository": "git@github.com:Scheduler-prj/front-end.git",
+  "author": "leesoyuun <leesoyun4206@naver.com>",
+  "license": "MIT"
 }
