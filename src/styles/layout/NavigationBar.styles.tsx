@@ -9,7 +9,7 @@ export const NavWrapper = styled.div`
   box-shadow: 1px 1px 20px 0px rgba(0, 0, 0, 0.04); /* 그림자 */
   display: flex;
   flex-direction: column;
-  padding: 16px; /* 전체 여백 */
+  padding: 24px; /* 전체 여백 */
   box-sizing: border-box;
 `;
 
@@ -32,8 +32,8 @@ export const MenuList = styled.ul`
 export const MenuItem = styled.li<{ active?: boolean }>`
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 12px 16px;
+  gap: 20px;
+  padding: 12px 20px;
   border-radius: 8px;
   cursor: pointer;
   color: ${(props) => (props.active ? "#6673FF" : "#333333")};
@@ -45,20 +45,15 @@ export const MenuItem = styled.li<{ active?: boolean }>`
 `;
 
 export const UserCard = styled.div`
-  background-color: #6673FF; /* Primary 색상 */
-  color: #FFFFFF;
-  border-radius: 8px;
-  padding: 12px;
-  text-align: center;
-  margin-bottom: 16px;
-
-  .user-name {
-    font-weight: bold;
-    margin-top: 8px;
-  }
-
-  .streak {
-    font-size: 0.875rem;
-    margin-top: 4px;
-  }
+    display: flex;
+    width: 100%; /* 지정된 너비 */
+    height : 88px;
+    padding: 20px; /* 내부 여백 */
+    align-items: center; /* 세로 중앙 정렬 */
+    gap: 12px; /* 아이템 간 간격 */
+    border-radius: 8px; /* 모서리 둥글게 */
+    background: #6373FF; /* 배경색 */
+    color: #ffffff; /* 텍스트 색상 */
+    box-sizing: border-box; /* 패딩 포함 크기 계산 */
+    margin-bottom : 40px;  /* UserCard 와 MenuList 간 간격 추가 */
 `;

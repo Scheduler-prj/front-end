@@ -7,19 +7,11 @@ const AppWrapper = styled.div`
   height: 100vh;
 `;
 
-const MainContent = styled.div`
-  flex: 1;
-  padding: 20px;
-  background-color: #f9f9f9;
-`;
-
 const Layout = () => {
     return (
         <AppWrapper>
             <NavigationBar />
-            <MainContent>
                 <Outlet />
-            </MainContent>
         </AppWrapper>
     );
 };
