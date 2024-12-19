@@ -29,21 +29,24 @@ export const MenuList = styled.ul`
   margin: 0;
 `;
 
-export const MenuItem = styled.li<{ active?: boolean }>`
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  padding: 12px 20px;
-  border-radius: 8px;
+export const MenuItem = styled.li.withConfig({
+    shouldForwardProp: (prop) => prop !== "active",
+})<{ active?: boolean }>`
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 12px 20px;
+    border-radius: 8px;
     margin-bottom: 16px;
-  cursor: pointer;
-  color: ${(props) => (props.active ? "#6673FF" : "#333333")};
-  background-color: ${(props) => (props.active ? "#F5F5FA" : "transparent")};
+    cursor: pointer;
+    color: ${(props) => (props.active ? "#6673FF" : "#333333")};
+    background-color: ${(props) => (props.active ? "#F5F5FA" : "transparent")};
 
-  &:hover {
-    background-color: #F0F1FF;
-  }
+    &:hover {
+        background-color: #F0F1FF;
+    }
 `;
+
 
 export const UserCard = styled.div`
     display: flex;
