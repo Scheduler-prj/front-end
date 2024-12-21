@@ -5,6 +5,7 @@ import { theme } from "../../../styles/theme";
 import Column from "../../../styles/Layouts/Column";
 import Row from "../../../styles/Layouts/Row";
 import { SolveQuizStore } from "../SolveQuizStore";
+import { DurationTime } from "./DurationTime/DurationTime";
 
 //받아야할 변수들
 //문제 개수
@@ -14,11 +15,7 @@ export const TotalQuizPannel = () => {
 
   return (
     <S.TotalQuizPannelWrapper>
-      {/* 소요시간 */}
-      <S.TotalDuration>
-        <T6 style={{ color: theme.colors.coolGray2 }}>{"총 소요시간"}</T6>
-        <B2 style={{ color: theme.colors.primary }}>{"11:05"}</B2>
-      </S.TotalDuration>
+      <DurationTime />
       {/* 푼문제 번호 */}
       <S.QuizNumberWrapper>
         {[1, 2, 3, 4, 5, 6, 6, 7, 8, 8, 8, 9, 9, 10].map((number) => (

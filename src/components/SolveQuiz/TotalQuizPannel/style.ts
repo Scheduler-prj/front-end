@@ -10,18 +10,6 @@ export const TotalQuizPannelWrapper = styled.div`
   gap: 36px;
 `;
 
-export const TotalDuration = styled.div`
-  background-color: ${({ theme }) => theme.colors.coolGray8};
-  width: fit-content;
-  padding: 13px 4.68%;
-  border-radius: 8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  margin-left: auto;
-`;
-
 export const QuizNumberWrapper = styled.div`
   display: flex;
   gap: 14px;
