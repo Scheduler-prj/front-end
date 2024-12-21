@@ -1,6 +1,8 @@
 import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
+  * { box-sizing : border-box }
+
   @font-face {
     font-family: 'Pretendard';
     src: url('../assets/fonts/Pretendard-Regular.woff2') format('font-woff2');
