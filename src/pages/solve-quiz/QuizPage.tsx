@@ -1,10 +1,5 @@
-import React from "react";
+import { SolveQuizMain } from "../../components/SolveQuiz/SolveQuizMain";
 
 export const QuizPage = () => {
-    return (
-        <div>
-            <h1>퀴즈 풀기</h1>
-            <p>퀴즈 풀기</p>
-        </div>
-    );
+  return <SolveQuizMain />;
 };

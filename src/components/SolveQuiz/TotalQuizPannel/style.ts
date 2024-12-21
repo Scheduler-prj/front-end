@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
 export const TotalQuizPannelWrapper = styled.div`
-  width: 23.4%;
+  width: 30%;
   background-color: ${({ theme }) => theme.colors.coolGray9};
-  padding: 36px 32px;
+  padding: 2.19% 1.95%;
   border-radius: 24px;
   display: flex;
   flex-direction: column;
@@ -13,20 +13,20 @@ export const TotalQuizPannelWrapper = styled.div`
 export const TotalDuration = styled.div`
   background-color: ${({ theme }) => theme.colors.coolGray8};
   width: fit-content;
-  padding: 12px 18px;
+  padding: 13px 4.68%;
   border-radius: 8px;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 8px;
-  margin-left:auto;
+  margin-left: auto;
 `;
 
 export const QuizNumberWrapper = styled.div`
   display: flex;
   gap: 14px;
   flex-wrap: wrap;
-  margin: 0px 17px;
+  margin: 0px 4.42%;
 `;
 
 export const QuizNumber = styled.div`
@@ -39,26 +39,11 @@ export const QuizNumber = styled.div`
   align-items: center;
 `;
 
-export const AnswerWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-`;
-
 export const CheckAnswer = styled.div<{ isChecked: boolean }>`
   background-color: ${({ theme, isChecked }) =>
     isChecked ? theme.colors.primary : theme.colors.coolGray8};
-  padding: 24px 64px;
+  padding: 21px 16.6%;
   border-radius: 10px;
-`;
-export const Row = styled.div`
-  display: flex;
-  gap: 8px;
-`;
-export const Column = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  width: 100%;
+  text-align: center;
 `;

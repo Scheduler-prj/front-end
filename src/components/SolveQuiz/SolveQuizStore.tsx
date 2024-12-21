@@ -7,7 +7,7 @@ interface QuizState {
   toggleIsChecked: () => void;
 }
 
-const SolveQuizStore = create<QuizState>((set) => ({
+export const SolveQuizStore = create<QuizState>((set) => ({
   selectedQuiz: null,
   isChecked: false,
   setSelectedQuiz: (id) =>
@@ -18,4 +18,3 @@ const SolveQuizStore = create<QuizState>((set) => ({
   toggleIsChecked: () => set((state) => ({ isChecked: !state.isChecked })),
 }));
 
-export default SolveQuizStore;

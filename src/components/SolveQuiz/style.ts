@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
 export const CommonBackground = styled.div`
-  width: 100%;
+  width: calc(100% - 280px);
   background-color: #f5f5fa;
-  padding: 40px;
+  padding: 2.43%;
   display: flex;
-  justify-content: space-between;
+  aspect-ratio: auto 16 / 9;
 `; //TODO : 추후 공통으로 빼야함

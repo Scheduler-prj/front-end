@@ -2,10 +2,10 @@ import styled from "styled-components";
 
 export const Wrapper = styled.div`
   width: 70%;
-  padding: 48px 52px;
+  padding: 4.5% 3.17%;
   border-radius: 24px;
   background-color: #fff;
-  margin-right: 32px;
+  margin-right: 1.95%;
 `;
 
 export const QuizBtn = styled.button<{ selected: boolean }>`
