@@ -1,7 +1,7 @@
 import React, {Suspense} from "react";
 import {createBrowserRouter} from "react-router-dom";
 import {NamedLazy} from '../utils/NamedLazy';
-import Layout from "../component/Layout";
+import {Layout} from "../component/Layout";
 
 // 동적으로 로드할 페이지
 const Calendar = NamedLazy(() => import("../pages/calendar/CalendarPage"), "CalendarPage");

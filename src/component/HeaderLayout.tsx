@@ -3,22 +3,20 @@ import styled from "styled-components";
 import {ReactComponent as NotificationIcon} from "../assets/header/NotificationIcon.svg";
 import ProfileImage from "../apis/kong.jpg";
 
-const HeaderLayout = () => {
+export const HeaderLayout = () => {
     return (
         <HeaderContainer>
             {/* 알림 아이콘 */}
             <Icon>
-                <NotificationIcon/>
+                <NotificationIcon />
             </Icon>
             {/* 사용자 프로필 */}
             <Profile>
-                <img src={ProfileImage} alt="Profile"/>
+                <img src={ProfileImage} alt="Profile" />
             </Profile>
         </HeaderContainer>
     );
 };
-
-export default HeaderLayout;
 
 const HeaderContainer = styled.div`
   display: flex;

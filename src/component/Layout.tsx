@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { NavigationBar } from "./NavigationBar";
 import styled from "styled-components";
-import HeaderLayout from "./HeaderLayout";
+import {HeaderLayout} from "./HeaderLayout";
 
 const AppWrapper = styled.div`
     display: flex;
@@ -20,7 +20,7 @@ const ContentWrapper = styled.div`
   background-color: #f9f9f9;
 `;
 
-const Layout = () => {
+export const Layout = () => {
     return (
         <AppWrapper>
             {/* 네비게이션 바와 콘텐츠 영역 */}
@@ -34,6 +34,3 @@ const Layout = () => {
         </AppWrapper>
     );
 };
-
-export default Layout;
-
