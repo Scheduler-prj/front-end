@@ -17,7 +17,7 @@ export const HeaderLayout = ({ currentPage, isLoggedIn }: HeaderLayoutProps) => 
     const renderHeaderContent = () => {
         switch (currentPage) {
             case "calendar":
-                return null;
+                return null;  // 특정 페이지에서는 추가 조건 없이 null 반환 (ex. 캘린더 페이지, 대시보드 페이지)
             case "quiz-list":
                 return null;
             case "dashboard":
