@@ -1,13 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 import { CalendarHeader } from "./CalendarHeader";
+import { WeekDays } from "./WeekDays";
+import { Calendar } from "./Calendar";
 
 export const CalendarPage = () => {
     return (
         <CalendarWrapper>
             <CalendarHeader />
+            <WeekDays/>
             <CalendarBody>
-                {/* 캘린더 본체 - 여기에 캘린더 UI 추가 */}
+                <Calendar/>
             </CalendarBody>
         </CalendarWrapper>
     );
