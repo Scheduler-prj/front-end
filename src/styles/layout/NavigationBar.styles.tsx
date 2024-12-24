@@ -1,8 +1,10 @@
 import styled from "styled-components";
 
 export const NavWrapper = styled.div`
-  width: 280px;
-  height: 1053px;
+  width: 100%;
+  height: 100%;
+    min-width: 240px; /* 최소 너비 */
+    max-width: 280px; /* 최대 너비 */
   background-color: #FFFFFF; /* 배경색 */
   border: 1px solid #CACCD7; /* 테두리 색상 */
   border-radius: 0px 0px 40px 0px; /* 둥근 모서리 */

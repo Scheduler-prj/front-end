@@ -44,12 +44,26 @@ const CalendarWrapper = styled.div`
     display: flex;
     flex-direction: column;
     min-width: 570px;
-    max-width: 1060px;
+    max-width: calc(100% - 400px); /* 오른쪽 540px 거리 확보 */
+    width : 100%;
+    justify-content: space-between; /* 위-아래 간격 조절 */
     padding: 24px 40px;
+    margin: auto 41px 40px; /* 위, 아래, 왼쪽 간격 */
     gap: 40px;
     flex: 1 0 0;
     border-radius: 16px;
     background: ${({theme}) => theme.colors.white};
+    box-sizing: border-box; /* padding 포함 크기 계산 */
+
+    @media (max-width: 1024px) {
+        max-width: calc(100% - 20%); /* 오른쪽 20% 거리 유지 */
+        margin: 60px auto 20px 20px; /* 상, 좌 간격 축소 */
+    }
+
+    @media (max-width: 768px) {
+        max-width: calc(100% - 10%); /* 더 작은 화면에서는 10% 거리 유지 */
+        margin: 40px auto 20px 10px; /* 상단 간격 축소 */
+    }
 `;
 
 const CalendarBody = styled.div`
