@@ -10,7 +10,7 @@ export const Calendar = () => {
     const days = Array.from({ length: 35 }, (_, i) => ({
         day: i + 1,
         isCurrentMonth: i >= 1 && i <= 31, // 현재 월 표시 여부
-        tasks: i === 1 ? ["교양 과제1", "수학 문제 2개 풀기"] : [], // 해당 날짜에 표시할 작업
+        tasks: i === 1 ? [""] : [], // 해당 날짜에 표시할 작업
     }));
 
     return (
@@ -33,10 +33,9 @@ const CalendarGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(7, 1fr); /* 7열로 배치 */
   gap: 8px;
-  padding: 16px;
+  //padding: 16px;
   background-color: ${({ theme }) => theme.colors.white};
   border-radius: 16px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05); /* 선택적 그림자 */
 `;
 
 const DayBox = styled.div<DayBoxProps>`
@@ -49,15 +48,13 @@ const DayBox = styled.div<DayBoxProps>`
   min-width: 70px;
   max-width: 140px;
   gap: 12px;
-  border-radius: 12px;
+  border-radius: 16px;
   opacity: ${({ isCurrentMonth }) => (isCurrentMonth ? 1 : 0.4)};
-  background-color: ${({ theme }) => theme.colors.coolGray11};
-  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
   cursor: pointer;
 
-  &:hover {
-    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.15);
-  }
+  //&:hover {
+  //  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.15);
+  //}
 `;
 
 const DayNumber = styled.div`

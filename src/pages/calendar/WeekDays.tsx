@@ -20,7 +20,6 @@ const WeekDaysWrapper = styled.div`
   padding: 16px 0;
   border-radius: 40px;
   background: ${({ theme }) => theme.colors.coolGray11 || "#F6F7FF"}; /* 테마 색상 사용 */
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* 선택적 그림자 추가 */
 `;
 
 const Day = styled.div`
