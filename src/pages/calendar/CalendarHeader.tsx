@@ -4,15 +4,36 @@ import { H2 } from "../../styles/Typography";
 import { ReactComponent as MonthLeftButton } from "../../assets/calendar/MonthLeftButton.svg";
 import { ReactComponent as MonthRightButton } from "../../assets/calendar/MonthRightButton.svg"
 
-export const CalendarHeader = () => {
+interface CalendarHeaderProps {
+    year: number;
+    month: number; // 0: 1월, 11: 12월
+    changeMonth: (offset: number) => void;
+}
+
+export const CalendarHeader = ({year, month, changeMonth }:CalendarHeaderProps) => {
+    const monthNames = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+    ];
+
     return (
         <HeaderContainer>
             <MonthNavigation>
-                <H2 style={{ color: "#6673FF" }}>October, 2024</H2>
-                <button>
+                <H2 style={{ color: "#6673FF" }}>{`${monthNames[month]}, ${year}`}</H2>
+                <button onClick={()=>changeMonth(-1)}>
                     <MonthLeftButton width={32} height={32} />
                 </button>
-                <button>
+                <button onClick={() =>changeMonth(1)}>
                     <MonthRightButton width={32} height={32} />
                 </button>
             </MonthNavigation>
