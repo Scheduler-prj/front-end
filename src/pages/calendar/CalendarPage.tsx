@@ -6,26 +6,21 @@ import {Calendar} from "./Calendar";
 
 export const CalendarPage = () => {
     // 현재 날짜를 기반으로 초기 상태 설정
-    const today = new Date(); // 현재 날짜 가져오기
-    const [year, setYear] = useState(today.getFullYear()); // 현재 년도
-    const [month, setMonth] = useState(today.getMonth()); // 현재 월 (0: 1월, 11: 12월)
+    const today = new Date();
+    const [dateState, setDateState] = useState({ year: today.getFullYear(), month: today.getMonth() });
 
-    // 월 변경 함수
+    // 월 변경 함수 (const 사용)
     const changeMonth = (offset: number) => {
-        setMonth((prevMonth) => {
-            const newMonth = prevMonth + offset;
-
-            if (newMonth < 0) {
-                setYear((prevYear) => prevYear - 1);
-                return 11; // 이전 년도의 12월
-            }
-            if (newMonth > 11) {
-                setYear((prevYear) => prevYear + 1);
-                return 0; // 다음 년도의 1월
-            }
-            return newMonth;
+        setDateState((prevState) => {
+            const newMonth = (prevState.month + offset + 12) % 12; // 음수 보정
+            const yearOffset = Math.floor((prevState.month + offset) / 12);
+            const newYear = prevState.year + yearOffset;
+            return { year: newYear, month: newMonth };
         });
     };
+
+    // 상태 사용
+    const { year, month } = dateState;
 
     return (
         <CalendarWrapper>
