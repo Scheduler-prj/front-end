@@ -1,10 +1,23 @@
 import React from "react";
+import { TodayQuiz } from "./components/todayQuiz/\bTodayQuiz";
+import { QuizAnalysis } from "./components/quizAnalysis/QuizAnalysis";
+import * as S from "./style";
+
+
 
 export const DashboardPage = () => {
     return (
-        <div>
-            <h1>성과 대시보드</h1>
-            <p>성과</p>
-        </div>
+       <>
+        <S.CommonBackground>
+            <S.DashWrapper>
+                <S.DashContainer>
+                    <TodayQuiz></TodayQuiz>
+                    <div>2</div>
+                    <QuizAnalysis></QuizAnalysis>
+                    <div>4</div>
+                </S.DashContainer>
+            </S.DashWrapper>
+        </S.CommonBackground>
+       </>
     );
 };
