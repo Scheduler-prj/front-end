@@ -17,8 +17,10 @@ export const CommonBackground = styled.div`
 export const DashContainer =styled.div`
 
   display: grid; /* Grid 레이아웃 사용 */
-  grid-template-columns: repeat(2, 1fr); /* 2열 설정 */
-  grid-template-rows: repeat(2, 1fr);    /* 2행 설정 */
+  grid-template-columns: repeat(2, 1fr);
+  /* grid-template-columns:auto auto; */
+  /* grid-template-rows: repeat(2, 1fr);    2행 설정 */
+  grid-template-rows: auto auto;
   gap: 40px; /* 칸 사이의 간격 */
   width: 100%;
   /* height: 200px; */

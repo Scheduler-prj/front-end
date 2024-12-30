@@ -11,7 +11,7 @@ export const TodayContainer = styled.div`
 
 export const CardContainer =styled.div`
   width:25%;
-  padding:32px 20px 20px;
+  padding:32px 2.85% 2.85%;
   position:relative;
   /* background-color:white; */
   border-radius: 12px;
