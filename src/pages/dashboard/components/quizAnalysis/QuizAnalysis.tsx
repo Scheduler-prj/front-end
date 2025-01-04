@@ -56,7 +56,7 @@ export const QuizAnalysis = () => {
               <QuizChart/>
             </S.ChartWrapper>
 
-            <S.CorrectWrapper>
+            <S.WrongWrapper>
               <B6 style={{marginBottom:"27px"}}>틀린 문항</B6>
               <Column verticalAlign="center" gap={8}>
                 <S.WrongCard>
@@ -71,7 +71,7 @@ export const QuizAnalysis = () => {
                 </S.WrongCard>
               </Column>
               <img src={Under} alt="alt" style={{width:'40px'}}></img>
-            </S.CorrectWrapper>
+            </S.WrongWrapper>
           </S.AnalysisMain>
         </S.AnalysisContainer>
        </>

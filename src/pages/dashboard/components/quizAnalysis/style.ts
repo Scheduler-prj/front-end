@@ -51,13 +51,13 @@ export const Line=styled.div`
   background: #D4D6EB;
 `
 
-export const CorrectWrapper=styled.div`
+export const WrongWrapper=styled.div`
  /* width: 700px; */
  width:100%;
   /* height: 327px; */
-  flex-shrink: 0;
+  /* flex-shrink: 0; */
   padding:16px 16px 8px 16px;
-
+  margin-top:20px;
   border-radius: 12px;
   background: var(--White-FFFFFF, #FFF);
   /* background: var(--White-FFFFFF, color(display-p3 1 1 1)); */
@@ -87,5 +87,5 @@ export const WrongCard =styled.div`
 export const ChartWrapper=styled.div`
   width:52.57%;
   align-self:stretch;
-  flex-shrink:0;
+  /* flex-shrink:0; */
 `

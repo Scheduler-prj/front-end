@@ -87,7 +87,7 @@ const QuizChart = () => {
         // width: "500px",
         width:'100%',
         // height: "300px",
-        height: "100%", 
+        // height: "100%", 
         padding: "16px",
         backgroundColor: "#F9F9F9",
         borderRadius: "16px",
@@ -97,9 +97,9 @@ const QuizChart = () => {
       <B5 style={{color:'#4D4D55',marginBottom:'20px'}}>
         7일간의 퀴즈 정답률
       </B5>
-      {/* <Line data={data} options={options} style={{height:'114px',display:'inline-block'}}/> */}
+      {/* <Line data={data} options={options} style={{height:'114px'}}/> */}
       {/* <Line data={data} options={options} style={{ height: "114px", width: "100%" }} height={114} /> */}
-      <Line data={data} options={options} height={114} style={{ height: '114px' }} />
+      <Line data={data} options={options}  />
     </div>
   );
 };
