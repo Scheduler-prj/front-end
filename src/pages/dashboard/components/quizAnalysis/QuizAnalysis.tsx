@@ -51,7 +51,11 @@ export const QuizAnalysis = () => {
                 </Row>
               </S.InfoContainer>
             </S.InfoWrapper>
-            <QuizChart/>
+
+            <S.ChartWrapper>
+              <QuizChart/>
+            </S.ChartWrapper>
+
             <S.CorrectWrapper>
               <B6 style={{marginBottom:"27px"}}>틀린 문항</B6>
               <Column verticalAlign="center" gap={8}>

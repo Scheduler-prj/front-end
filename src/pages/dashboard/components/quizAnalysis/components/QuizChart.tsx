@@ -85,9 +85,9 @@ const QuizChart = () => {
     <div
       style={{
         // width: "500px",
-        width:"50.57%",//임시
+        width:'100%',
         // height: "300px",
-        height: "188.797px", //임시
+        height: "100%", 
         padding: "16px",
         backgroundColor: "#F9F9F9",
         borderRadius: "16px",

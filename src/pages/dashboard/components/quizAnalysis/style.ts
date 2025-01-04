@@ -12,9 +12,10 @@ export const AnalysisMain=styled.div`
   display: flex;
   /* width: 700px; */
   width:100%;
-  align-items: flex-start;
-  align-content: flex-start;
-  gap: 20px;
+  /* align-items: flex-start; */
+  /* align-content: flex-start; */
+  /* gap: 20px; */
+  gap:2.85%;
   flex-wrap: wrap;
 `
 
@@ -37,6 +38,7 @@ export const InfoWrapper =styled.div`
 
 export const InfoContainer =styled.div`
   display: flex;
+  width:100%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -81,4 +83,9 @@ export const WrongCard =styled.div`
   border-radius: 10px;
   background: var(--Cool-Gray-10-F5F5FA, #F5F5FA);
   /* background: var(--Cool-Gray-10-F5F5FA, color(display-p3 0.9593 0.9611 0.9801)); */
+`
+export const ChartWrapper=styled.div`
+  width:52.57%;
+  align-self:stretch;
+  flex-shrink:0;
 `
