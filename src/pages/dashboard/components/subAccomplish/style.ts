@@ -39,8 +39,8 @@ gap: 20px;
 export const SubMain=styled.div`
   display: flex;
   align-items: center;
-  align-content: center;
-  gap: 20px;
+  /* align-content: center; */
+  gap: 2.85%;
   align-self: stretch;
   flex-wrap: wrap;
 
@@ -50,7 +50,7 @@ export const SubCardWrapper=styled.div`
   display: flex;
 /* width: 220px; */
 /* height: 240px; */
-width: 28.93%;
+width: 31.42%;
 /* padding-bottom:0px 20px 22px 20px; */
 flex-direction: column;
 /* align-items: center; */
@@ -60,7 +60,6 @@ background: var(--White-FFFFFF, #FFF);
 /* background: var(--White-FFFFFF, color(display-p3 1 1 1)); */
 box-shadow: 1px 1px 20px 0px rgba(0, 0, 0, 0.04);
 /* box-shadow: 1px 1px 20px 0px color(display-p3 0 0 0 / 0.04); */
-
 
 `
 

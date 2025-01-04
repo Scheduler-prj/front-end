@@ -21,7 +21,7 @@ export const DashContainer =styled.div`
   /* grid-template-columns:auto auto; */
   /* grid-template-rows: repeat(2, 1fr);    2행 설정 */
   grid-template-rows: auto auto;
-  gap: 40px; /* 칸 사이의 간격 */
+  gap: 5.12%; /* 칸 사이의 간격 */
   width: 100%;
   /* height: 200px; */
   /* border: 1px solid #ccc; */

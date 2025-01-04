@@ -22,11 +22,12 @@ export const InfoWrapper =styled.div`
   display: flex;
   /* width: 312px; */
   /* height: 200px; */
+  width: 44.57%; //수정해야함
   padding: 22px 30px;
   justify-content: center;
   align-items: center;
   flex-shrink: 0;
-
+  
   border-radius: 12px;
   background: var(--White-FFFFFF, #FFF);  
   /* background: var(--White-FFFFFF, color(display-p3 1 1 1)); */

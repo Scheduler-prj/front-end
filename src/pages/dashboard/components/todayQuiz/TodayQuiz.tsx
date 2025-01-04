@@ -17,7 +17,7 @@ export const TodayQuiz = () => {
             </Row>
             <img src={Back} alt="alt"></img>
           </Row>
-          <Row verticalAlign="center" gap={20}>
+          <Row verticalAlign="center" style={{gap:'2.85%',overflowX:'auto'}} >
             <S.CardContainer>
               <S.CardTop></S.CardTop>
               <Column style={{marginBottom:'54px'}}>

@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import {T7} from '../../../../../styles/Typography'
-import Drop from './Drop.svg'
+import { T7 } from '../../../../../styles/Typography';
+import Drop from './Drop.svg';
 
 // Styled-components
 const CalendarContainer = styled.div`
@@ -9,25 +9,20 @@ const CalendarContainer = styled.div`
 `;
 
 const Dropdown = styled.div`
-  /* background-color: #2a2a2a; */
-  background-color:white;
+  background-color: white;
   border: 1px solid #4a90e2;
   padding: 4px 12px 4px 20px;
   border-radius: 12px;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  /* justify-content: space-between; */
-  gap:8px;
-  /* color: white; */
-  color:#6373FF;
+  gap: 8px;
+  color: #6373FF;
   font-size: 16px;
-  /* width: 250px; */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 `;
 
 const Arrow = styled.span`
-  /* margin-left: 10px; */
   color: #aaa;
 `;
 
@@ -35,8 +30,7 @@ const Calendar = styled.div`
   position: absolute;
   top: 60px;
   left: 0;
-  /* background-color: #2a2a2a; */
-  background-color:white;
+  background-color: white;
   border: 1px solid #4a90e2;
   border-radius: 12px;
   padding: 20px;
@@ -66,8 +60,7 @@ const ArrowBtn = styled.button`
 
 const MonthTitle = styled.div`
   font-size: 16px;
-  /* color: #fff; */
-  color:black;
+  color: black;
 `;
 
 const CalendarGrid = styled.div`
@@ -82,13 +75,12 @@ const CalendarDay = styled.div`
   border-radius: 50%;
   background-color: transparent;
   cursor: pointer;
-  /* color: white; */
-  color:black;
+  color: black;
   font-size: 14px;
 
   &:hover {
     background-color: #4a90e2;
-    color:white;
+    color: white;
   }
 
   &.selected {
@@ -100,11 +92,23 @@ const CalendarDay = styled.div`
 
 const App: React.FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [selectedRange, setSelectedRange] = useState<string>("날짜 드롭다운");
+  const [selectedRange, setSelectedRange] = useState<string>("");
 
   const [currentDate, setCurrentDate] = useState<Date>(new Date());
   const [startDate, setStartDate] = useState<string | null>(null);
   const [endDate, setEndDate] = useState<string | null>(null);
+
+  const formatDate = (date: Date): string =>
+    `${date.getMonth() + 1}.${String(date.getDate()).padStart(2, "0")}`;
+
+  useEffect(() => {
+    const today = new Date();
+    const start = new Date(today);
+    start.setDate(today.getDate() - 6);
+    setStartDate(formatDate(start));
+    setEndDate(formatDate(today));
+    setSelectedRange(`${formatDate(start)} ~ ${formatDate(today)}`);
+  }, []);
 
   const getDaysInMonth = (year: number, month: number): Date[] => {
     const date = new Date(year, month, 1);
@@ -127,10 +131,7 @@ const App: React.FC = () => {
   const handleDateClick = (day: Date): void => {
     const start = new Date(day);
     const end = new Date(start);
-    start.setDate(start.getDate() - 6); // 선택된 날짜에서 6일 전으로 설정
-
-    const formatDate = (date: Date): string =>
-      `${date.getMonth() + 1}.${String(date.getDate()).padStart(2, "0")}`;
+    start.setDate(start.getDate() - 6);
 
     setStartDate(formatDate(start));
     setEndDate(formatDate(end));
@@ -147,7 +148,7 @@ const App: React.FC = () => {
     <CalendarContainer>
       <Dropdown onClick={() => setIsOpen(!isOpen)}>
         <T7>{selectedRange}</T7>
-        <img src={Drop} alt="alt" style={{width:'24px'}}></img>
+        <img src={Drop} alt="alt" style={{ width: '24px' }} />
       </Dropdown>
 
       {isOpen && (
