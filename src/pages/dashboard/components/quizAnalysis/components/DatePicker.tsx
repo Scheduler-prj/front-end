@@ -131,8 +131,8 @@ const App: React.FC = () => {
   const handleDateClick = (day: Date): void => {
     const start = new Date(day);
     const end = new Date(start);
-    start.setDate(start.getDate() - 6);
-
+    end.setDate(start.getDate() + 6); // 선택한 날짜 + 6일
+  
     setStartDate(formatDate(start));
     setEndDate(formatDate(end));
     setSelectedRange(`${formatDate(start)} ~ ${formatDate(end)}`);
