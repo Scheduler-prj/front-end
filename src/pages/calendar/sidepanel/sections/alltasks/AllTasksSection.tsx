@@ -30,7 +30,7 @@ export const AllTasksSection = () => {
     if (!isLoggedIn) {
         return (
             <AllTasksWrapper>
-                <Title>오늘의 할 일</Title>
+                <Title>모든 할 일</Title>
                 <Divider />
                 <NoDataMessage>로그인 후 이용 가능합니다.</NoDataMessage>
             </AllTasksWrapper>

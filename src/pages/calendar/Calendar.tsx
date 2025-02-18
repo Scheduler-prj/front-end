@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import { useTasksStore } from "../../store/feature/tasksStore";
+import {useAuthStore} from "../../store/feature/authStore";
 
 interface DayBoxProps {
     isCurrentMonth: boolean;
@@ -10,8 +12,37 @@ interface CalendarProps {
     month: number; // 0: 1월, 11: 12월
 }
 
+// 날짜별로 할 일을 정리하는 함수
+const formatDateKey = (dateString: string): string => {
+    return new Date(dateString).toISOString().split("T")[0]; // "2025-02-10"
+};
+
+const organizeTasksByDate = (tasks: { todoAt: string; title: string; color : string }[]) => {
+    return tasks.reduce((acc, task) => {
+        const dateKey = formatDateKey(task.todoAt);
+        if (!acc[dateKey]) acc[dateKey] = [];
+
+        acc[dateKey].push({ title: task.title, color: task.color }); // 객체 형식으로 저장
+        return acc;
+    }, {} as Record<string, { title: string; color: string }[]>);
+};
+
 export const Calendar = ({year, month}: CalendarProps) => {
-    const generateDays = (year: number, month: number) => {
+    const { tasks } = useTasksStore();  // 할 일 데이터 가져오기
+    const { isLoggedIn } = useAuthStore(); // 로그인 상태 가져오기
+
+    // 날짜별 할 일 정리
+    const tasksByDate = organizeTasksByDate(tasks.map(task => ({
+        todoAt: task.todoAt,
+        title: task.title,
+        color: task.color,
+    })));
+
+    const generateDays = (
+        year: number,
+        month: number,
+        tasksByDate: Record<string, { title: string; color: string }[]>
+    ) => {
         const today = new Date(); // 오늘 날짜
         const isToday = (d: number, m: number, y: number) =>
             d === today.getDate() && m === today.getMonth() && y === today.getFullYear();
@@ -19,7 +50,6 @@ export const Calendar = ({year, month}: CalendarProps) => {
         const firstDayOfMonth = new Date(year, month, 1).getDay(); // 해당 달의 첫 요일
         const daysInMonth = new Date(year, month + 1, 0).getDate(); // 해당 달의 총 일수
         const totalCells = Math.ceil((firstDayOfMonth + daysInMonth) / 7) * 7; // 필요한 셀 개수 계산
-
         const prevMonthDays = new Date(year, month, 0).getDate(); // 이전 달의 총 일수
 
         return Array.from({ length: totalCells }, (_, i) => {
@@ -33,35 +63,49 @@ export const Calendar = ({year, month}: CalendarProps) => {
                 return { day: dayNumber - daysInMonth, isCurrentMonth: false, isToday: false, tasks: [] };
             } else {
                 // 현재 달의 날짜
+                const dateKey = `${year}-${String(month + 1).padStart(2, "0")}-${String(dayNumber).padStart(2, "0")}`;
                 return {
                     day: dayNumber,
                     isCurrentMonth: true,
                     isToday: isToday(dayNumber, month, year),
-                    tasks: []
+                    tasks: tasksByDate[dateKey] || []
                 };
             }
         });
     };
 
-    const days = generateDays(year, month);
+    const days = generateDays(year, month, tasksByDate);
 
     return (
         <CalendarGrid>
-            {days.map((day, index) => (
-                <DayBox
-                    key={index}
-                    $isCurrentMonth={day.isCurrentMonth}
-                >
-                    <DayNumber $isToday={day.isToday}>{day.day}</DayNumber>
-                    <Tasks>
-                        {day.tasks.map((task, idx) => (
-                            <Task key={idx}>{task}</Task>
-                        ))}
-                    </Tasks>
-                </DayBox>
-            ))}
+            {days.map((day, index) => {
+                //최대 3개의 일정만 표시
+                const tasksToDisplay = isLoggedIn ? day.tasks.slice(0, 3) : [];
+                const moreCount = isLoggedIn ? day.tasks.length - 3 : 0;
+
+                return (
+                    <DayBox key={index} $isCurrentMonth={day.isCurrentMonth}>
+                        <DayNumber $isToday={day.isToday}>{day.day}</DayNumber>
+                        <Tasks>
+                            {/*로그인 상태일 때만 할 일(Task) 렌더링 */}
+                            {isLoggedIn &&
+                                tasksToDisplay.map((task, idx) => (
+                                    <Task key={idx} color={task.color}>
+                                        {task.title}
+                                    </Task>
+                                ))
+                            }
+                            {/* 초과하는 일정이 있을 경우 "+N개" 표시 */}
+                            {isLoggedIn && moreCount > 0 && (
+                                <MoreTasks>+{moreCount}개</MoreTasks>
+                            )}
+                        </Tasks>
+                    </DayBox>
+                );
+            })}
         </CalendarGrid>
     );
+
 };
 
 const CalendarGrid = styled.div`
@@ -114,13 +158,29 @@ const Tasks = styled.div`
     overflow: hidden;
 `;
 
-const Task = styled.div`
+const Task = styled.div<{ color: string }>`
+    display: flex;
+    align-items: center;
+    min-width: 54px;
+    max-width: 124px;
+    padding: 2px 12px;
+    gap: 10px;
+    align-self: stretch;
+
+    border-radius: 100px;
+    background: ${({ color }) => color}; // 할 일 색상 적용
+    color: #000;
     font-size: 12px;
-    color: ${({theme}) => theme.colors.primary};
-    background-color: ${({theme}) => theme.colors.coolGray10};
-    padding: 4px 8px;
-    border-radius: 8px;
+    font-weight: 500;
     white-space: nowrap;
-    text-overflow: ellipsis;
     overflow: hidden;
+    text-overflow: ellipsis;
+`;
+
+const MoreTasks = styled.div`
+    font-size: 12px;
+    color: ${({ theme }) => theme.colors.primary};
+    cursor: pointer;
+    text-decoration: underline;
+    margin-top: 4px;
 `;

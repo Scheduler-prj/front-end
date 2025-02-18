@@ -28,7 +28,7 @@ export const ScheduleSection = () => {
     if (!isLoggedIn) {
         return (
             <ScheduleWrapper>
-                <Title>오늘의 할 일</Title>
+                <Title>일정</Title>
                 <Divider />
                 <NoDataMessage>로그인 후 이용 가능합니다.</NoDataMessage>
             </ScheduleWrapper>
