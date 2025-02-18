@@ -37,6 +37,15 @@ export const AllTasksSection = () => {
         );
     }
 
+    const formatDate = (dateString: string): string => {
+        // 날짜에서 'T' 이전까지 추출 (ISO 8601 대응)
+        const datePart = dateString.split("T")[0]; // "2025-02-10T10:00:00Z" → "2025-02-10"
+
+        // 기존 방식으로 변환
+        const [year, month, day] = datePart.split("-");
+        return `${parseInt(month, 10)}/${parseInt(day, 10)}`; // "02" → "2", "10" → "10"
+    };
+
     // 완료된/미완료된 할 일 분리
     const completedTasks = tasks.filter((task) => task.completed);
     const incompleteTasks = tasks.filter((task) => !task.completed);
@@ -84,7 +93,7 @@ export const AllTasksSection = () => {
                         key={task.todoId}
                         color={task.color}
                     >
-                        <TaskDate>{task.todoAt}</TaskDate>
+                        <TaskDate>{formatDate(task.todoAt)}</TaskDate>
                         <TaskContent>
                             <TaskTitle>{task.title}</TaskTitle>
                             <ButtonGroup>

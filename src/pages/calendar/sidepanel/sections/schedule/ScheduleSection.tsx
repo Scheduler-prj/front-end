@@ -35,6 +35,11 @@ export const ScheduleSection = () => {
         );
     }
 
+    // 날짜 형식을 JS의 split 을 활용하여 MM/DD 형식으로 변환
+    const formatDate = (dateString: string): string => {
+        const [year, month, day] = dateString.split("-"); // YYYY-MM-DD → [YYYY, MM, DD]
+        return `${parseInt(month, 10)}/${parseInt(day, 10)}`; // "02" → "2", "15" → "15"
+    };
 
     // 완료된/미완료된 할 일 분리
     const completedTasks = plans.filter((plan) => plan.clear);
@@ -69,7 +74,7 @@ export const ScheduleSection = () => {
                         //color={plan.color}
                     >
                         <ScheduleIndicator color={plan.color} /> {/* Indicator 추가 */}
-                        <ScheduleDate>{plan.startDate.split("T")[0]}</ScheduleDate>
+                        <ScheduleDate>{formatDate(plan.startDate)}</ScheduleDate>
                         <ScheduleContent>
                             <ScheduleTitle>{plan.title}</ScheduleTitle>
                             <ButtonGroup>
