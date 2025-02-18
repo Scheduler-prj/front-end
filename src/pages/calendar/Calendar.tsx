@@ -1,7 +1,8 @@
-import React from "react";
+import React, {useEffect} from "react";
 import styled from "styled-components";
 import { useTasksStore } from "../../store/feature/tasksStore";
 import {useAuthStore} from "../../store/feature/authStore";
+import {usePlanStore} from "../../store/feature/planStore";
 
 interface DayBoxProps {
     isCurrentMonth: boolean;
@@ -17,26 +18,44 @@ const formatDateKey = (dateString: string): string => {
     return new Date(dateString).toISOString().split("T")[0]; // "2025-02-10"
 };
 
-const organizeTasksByDate = (tasks: { todoAt: string; title: string; color : string }[]) => {
-    return tasks.reduce((acc, task) => {
-        const dateKey = formatDateKey(task.todoAt);
-        if (!acc[dateKey]) acc[dateKey] = [];
+const organizeTasksByDate = (
+    tasks: { todoAt: string; title: string; color : string }[],
+    plans: {startDate: string; title: string; color: string }[],
+) => {
+    const mergedItems: Record<string, { title: string; color: string }[]> = {};
 
-        acc[dateKey].push({ title: task.title, color: task.color }); // 객체 형식으로 저장
-        return acc;
-    }, {} as Record<string, { title: string; color: string }[]>);
+    // 할 일 추가
+    tasks.forEach((task) => {
+        const dateKey = formatDateKey(task.todoAt);
+        if (!mergedItems[dateKey]) mergedItems[dateKey] = [];
+        mergedItems[dateKey].push({ title: task.title, color: task.color });
+    });
+
+    // 일정 추가
+    plans.forEach((plan: { startDate: string; title: string; color: string }) => {
+        const dateKey = formatDateKey(plan.startDate);
+        if (!mergedItems[dateKey]) mergedItems[dateKey] = [];
+        mergedItems[dateKey].push({ title: plan.title, color: plan.color });
+    });
+
+    return mergedItems;
 };
 
 export const Calendar = ({year, month}: CalendarProps) => {
     const { tasks } = useTasksStore();  // 할 일 데이터 가져오기
+    const { plans, fetchPlans } = usePlanStore();  // plans 가져오기 + fetchPlans 추가
     const { isLoggedIn } = useAuthStore(); // 로그인 상태 가져오기
 
-    // 날짜별 할 일 정리
-    const tasksByDate = organizeTasksByDate(tasks.map(task => ({
-        todoAt: task.todoAt,
-        title: task.title,
-        color: task.color,
-    })));
+    // 컴포넌트가 처음 렌더링될 때 일정 데이터 가져오기
+    useEffect(() => {
+        fetchPlans(year, month);
+    }, [year, month, fetchPlans]);
+
+    // 할 일 + 일정 함께 정리
+    const tasksAndPlansByDate = organizeTasksByDate(
+        tasks.map(task => ({ todoAt: task.todoAt, title: task.title, color: task.color })),
+        plans.map(plan => ({ startDate: plan.startDate, title: plan.title, color: plan.color }))
+    );
 
     const generateDays = (
         year: number,
@@ -74,7 +93,7 @@ export const Calendar = ({year, month}: CalendarProps) => {
         });
     };
 
-    const days = generateDays(year, month, tasksByDate);
+    const days = generateDays(year, month, tasksAndPlansByDate);
 
     return (
         <CalendarGrid>
@@ -154,15 +173,18 @@ const DayNumber = styled.div<{ $isToday: boolean }>`
 const Tasks = styled.div`
     display: flex;
     flex-direction: column;
+    width: 100%;
     gap: 4px;
     overflow: hidden;
+    min-height: 80px; /* 최소 높이 설정하여 개수가 적어도 동일한 높이 유지 */
 `;
 
 const Task = styled.div<{ color: string }>`
     display: flex;
     align-items: center;
-    min-width: 54px;
-    max-width: 124px;
+    min-width: 100px;  /* 최소 너비 통일 */
+    max-width: 120px; /* 최대 너비 설정 */
+    height: 15px; /* 일정한 높이 */
     padding: 2px 12px;
     gap: 10px;
     align-self: stretch;
