@@ -12,6 +12,7 @@ export const Routine = ({ onCreate }: { onCreate: () => void }) => {
     const {isLoggedIn} = useAuthStore();
 
     useEffect(() => {
+        console.log("isLoggedIn", isLoggedIn);
         if (isLoggedIn) {
             fetchRoutines();
         }
@@ -49,7 +50,7 @@ export const Routine = ({ onCreate }: { onCreate: () => void }) => {
                 {routines.map((routine) => (
                     <RoutineItem
                         key={routine.routine_id}
-                        completed={routine.isClear}
+                        $completed={routine.isClear}
                     >
                         <TaskTitle>{routine.title}</TaskTitle>
                         <Checkbox
@@ -109,7 +110,7 @@ const RoutineList = styled.ul`
     width: 100%;
 `;
 
-const RoutineItem = styled.li<{ completed: boolean }>`
+const RoutineItem = styled.li<{ $completed: boolean }>`
     display: flex;
     justify-content: space-between; /* 체크박스와 텍스트를 양쪽에 배치 */
     align-items: center;
@@ -119,10 +120,10 @@ const RoutineItem = styled.li<{ completed: boolean }>`
     gap: 12px;
     align-self: stretch;
     border-radius: 8px;
-    background-color: ${({ completed, theme }) =>
-            completed ? theme.colors.coolGray10 : "#FFFFFF"}; /* 완료 여부에 따른 배경색 */
-    border: ${({ completed, theme }) =>
-            completed ? "none" : "0.4px solid #2D2D2D"}; /* 완료되지 않은 경우 테두리 추가 */
+    background-color: ${({ $completed, theme }) =>
+            $completed ? theme.colors.coolGray10 : "#FFFFFF"}; /* 완료 여부에 따른 배경색 */
+    border: ${({ $completed, theme }) =>
+            $completed ? "none" : "0.4px solid #2D2D2D"}; /* 완료되지 않은 경우 테두리 추가 */
     margin-bottom: 8px; /* 아이템 간격 추가 */
 
     &:last-child {

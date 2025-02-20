@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {TabNavigation} from "./tabnavigation/TabNavigation";
 import styled from "styled-components";
 import {AllTasksSection} from "./sections/alltasks/AllTasksSection"
@@ -17,6 +17,12 @@ export const SidePanel = () => {
 
     const [isSubmitting, setIsSubmitting] = useState(false); // 성과 제출 상태
     const [selectedTask, setSelectedTask] = useState<Task | null>(null); // 타입에 null 추가
+
+    // 탭(오늘 하루, 모든 할일, 일정) 이 변경될 때 성과 제출 상태 초기화
+    useEffect(() => {
+        setIsSubmitting(false);
+        setSelectedTask(null);
+    }, [activeTab]);
 
     // 루틴 생성 화면으로 이동
     const handleCreateRoutine = () => {
@@ -96,7 +102,17 @@ export const SidePanel = () => {
                     )}
                 </>
             )}
-            {activeTab === "allTasks" && <AllTasksSection />}
+            {activeTab === "allTasks" && (
+                isSubmitting && selectedTask ? (
+                    <SubmissionAchieve
+                        task={selectedTask}
+                        onBack={handleBackToTodayTasks}
+                        onSubmit={handleSubmitClick}
+                    />
+                ) : (
+                    <AllTasksSection onSubmit={handleStartSubmission} />
+                )
+            )}
             {activeTab === "schedule" && <ScheduleSection />}
         </PanelWrapper>
     );

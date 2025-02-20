@@ -20,7 +20,7 @@ export const TabNavigation = ({ activeTab, setActiveTab }: TabNavigationProps) =
             {tabs.map((tab) => (
                 <TabButton
                     key={tab.id}
-                    isActive={activeTab === tab.id}
+                    $isActive={activeTab === tab.id}
                     onClick={() => setActiveTab(tab.id)}
                 >
                     {tab.label}
@@ -42,7 +42,7 @@ const TabWrapper = styled.div`
   background: ${({ theme }) => theme.colors.white}; 
 `;
 
-const TabButton = styled.button<{ isActive: boolean }>`
+const TabButton = styled.button<{ $isActive: boolean }>`
   flex: 1; /* 각 탭 버튼이 동일한 너비를 가짐 */
   padding: 10px 16px;
   font-size: 14px;
@@ -51,15 +51,15 @@ const TabButton = styled.button<{ isActive: boolean }>`
   border: none;
   border-radius: 12px;
   cursor: pointer;
-  background: ${({ isActive, theme }) =>
-    isActive ? theme.colors.primary || "#6673FF" : theme.colors.white || "#FFF"};
-  color: ${({ isActive, theme }) =>
-    isActive ? theme.colors.white || "#FFF" : theme.colors.gray700 || "#333"};
-  box-shadow: ${({ isActive }) =>
-    isActive ? "0px 4px 8px rgba(0, 0, 0, 0.1)" : "none"};
+  background: ${({ $isActive, theme }) =>
+    $isActive ? theme.colors.primary || "#6673FF" : theme.colors.white || "#FFF"};
+  color: ${({ $isActive, theme }) =>
+    $isActive ? theme.colors.white || "#FFF" : theme.colors.gray700 || "#333"};
+  box-shadow: ${({ $isActive }) =>
+    $isActive ? "0px 4px 8px rgba(0, 0, 0, 0.1)" : "none"};
 
   &:hover {
-    background: ${({ isActive, theme }) =>
-    isActive ? theme.colors.primaryDark || "#6673FF" : "#F0F0F0"};
+    background: ${({ $isActive, theme }) =>
+    $isActive ? theme.colors.primaryDark || "#6673FF" : "#F0F0F0"};
   }
 `;

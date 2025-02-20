@@ -9,6 +9,7 @@ export const CalendarPage = () => {
     // 현재 날짜를 기반으로 초기 상태 설정
     const today = new Date();
     const [dateState, setDateState] = useState({ year: today.getFullYear(), month: today.getMonth() });
+    const [selectedTab, setSelectedTab] = useState<"all" | "plans" | "tasks">("all");  // 필터링 상태 추가
 
     // 월 변경 함수 (const 사용)
     const changeMonth = (offset: number) => {
@@ -27,10 +28,16 @@ export const CalendarPage = () => {
         <CalendarWrapper>
             {/* 캘린더 영역 */}
             <CalendarSection>
-                <CalendarHeader year={year} month={month} changeMonth={changeMonth} />
+                <CalendarHeader
+                    year={year}
+                    month={month}
+                    changeMonth={changeMonth}
+                    selectedTab={selectedTab}
+                    setSelectedTab={setSelectedTab}
+                />
                 <WeekDays />
                 <CalendarBody>
-                    <Calendar year={year} month={month} />
+                    <Calendar year={year} month={month} selectedTab={selectedTab} />
                 </CalendarBody>
             </CalendarSection>
 

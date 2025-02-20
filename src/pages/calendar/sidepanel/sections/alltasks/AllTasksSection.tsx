@@ -1,12 +1,16 @@
 import React, {useEffect, useState, useCallback} from 'react';
 import styled from "styled-components";
-import {useTasksStore} from "../../../../../store/feature/tasksStore";
+import {Task, useTasksStore} from "../../../../../store/feature/tasksStore";
 import { ReactComponent as Edit } from "../../../../../assets/icons/calendar/rightsidebar/Edit.svg"
 import {SubT1, T6, T7} from "../../../../../styles/Typography";
 import {TaskCreation} from "../today/TaskCreation";
 import {useAuthStore} from "../../../../../store/feature/authStore";
 
-export const AllTasksSection = () => {
+interface AllTasksSectionProps {
+    onSubmit: (task: Task) => void;
+}
+
+export const AllTasksSection = ({onSubmit}:AllTasksSectionProps) => {
     const {tasks, fetchTasks, toggleTask, submitTask} = useTasksStore();
     const { isLoggedIn } = useAuthStore();
 
@@ -30,12 +34,21 @@ export const AllTasksSection = () => {
     if (!isLoggedIn) {
         return (
             <AllTasksWrapper>
-                <Title>오늘의 할 일</Title>
+                <Title>모든 할 일</Title>
                 <Divider />
                 <NoDataMessage>로그인 후 이용 가능합니다.</NoDataMessage>
             </AllTasksWrapper>
         );
     }
+
+    const formatDate = (dateString: string): string => {
+        // 날짜에서 'T' 이전까지 추출 (ISO 8601 대응)
+        const datePart = dateString.split("T")[0]; // "2025-02-10T10:00:00Z" → "2025-02-10"
+
+        // 기존 방식으로 변환
+        const [year, month, day] = datePart.split("-");
+        return `${parseInt(month, 10)}/${parseInt(day, 10)}`; // "02" → "2", "10" → "10"
+    };
 
     // 완료된/미완료된 할 일 분리
     const completedTasks = tasks.filter((task) => task.completed);
@@ -43,6 +56,11 @@ export const AllTasksSection = () => {
 
     const handleCreateClick = () => {
         setIsCreating(true); // "할 일 생성하기" 버튼 클릭 시 상태 변경
+    };
+
+    const handleSubmitClick = (task: Task) => {
+        console.log("성과 제출 버튼 클릭됨 : ", task);  // 디버깅용 로그
+        onSubmit(task); // 부모 컴포넌트로 `onSubmit` 콜백 전달
     };
 
     const handleBack = () => {
@@ -84,12 +102,12 @@ export const AllTasksSection = () => {
                         key={task.todoId}
                         color={task.color}
                     >
-                        <TaskDate>{task.todoAt}</TaskDate>
+                        <TaskDate>{formatDate(task.todoAt)}</TaskDate>
                         <TaskContent>
                             <TaskTitle>{task.title}</TaskTitle>
                             <ButtonGroup>
                                 {activeTab === "incomplete" && (
-                                    <SubmitButton onClick={() => submitTask(task.todoId)}>
+                                    <SubmitButton onClick={() => handleSubmitClick(task)}>
                                         성과 제출
                                     </SubmitButton>
                                 )}

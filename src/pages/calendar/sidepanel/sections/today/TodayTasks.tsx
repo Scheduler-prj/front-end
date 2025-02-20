@@ -17,6 +17,7 @@ export const TodayTasks = ({ onCreateTask, onSubmit }: TaskProps) => {
     const { isLoggedIn } = useAuthStore();  // zustand 에서 로그인 상태 가져오기
 
     useEffect(() => {
+        console.log("isLoggedIn", isLoggedIn);
         if (isLoggedIn) {
             fetchTasks(); // 로그인한 경우에만 데이터를 불러오기
         }
@@ -32,8 +33,23 @@ export const TodayTasks = ({ onCreateTask, onSubmit }: TaskProps) => {
         );
     }
 
-    const completedTasks = tasks.filter((task) => task.completed);
-    const incompleteTasks = tasks.filter((task) => !task.completed);
+    const formatDate = (dateString: string): string => {
+        // 날짜에서 'T' 이전까지 추출 (ISO 8601 대응)
+        const datePart = dateString.split("T")[0]; // "2025-02-10T10:00:00Z" → "2025-02-10"
+
+        // 기존 방식으로 변환
+        const [year, month, day] = datePart.split("-");
+        return `${parseInt(month, 10)}/${parseInt(day, 10)}`; // "02" → "2", "10" → "10"
+    };
+
+    // 오늘 날짜 구하기
+    const todayDate = new Date().toISOString().split("T")[0]; // "2025-02-20"
+
+    // 오늘 할 일만 필터링
+    const todayTasks = tasks.filter((task) => task.todoAt.split("T")[0] === todayDate);
+
+    const completedTasks = todayTasks.filter((task) => task.completed);
+    const incompleteTasks = todayTasks.filter((task) => !task.completed);
 
     const handleSubmitClick = (task: Task) => {
         onSubmit(task); // 부모 컴포넌트로 `onSubmit` 콜백 전달
@@ -52,15 +68,15 @@ export const TodayTasks = ({ onCreateTask, onSubmit }: TaskProps) => {
             {/* 완료된 할 일 섹션 */}
             {completedTasks.length > 0 && (
                 <>
-                    <SectionHeader completed={true}>완료</SectionHeader>
+                    <SectionHeader $completed={true}>완료</SectionHeader>
                     <TasksList>
                         {completedTasks.map((task) => (
                             <TaskItem
                                 key={task.todoId}
-                                completed={task.completed}
+                                $completed={task.completed}
                                 color={task.color}
                             >
-                                <TaskDate>{task.todoAt}</TaskDate>
+                                <TaskDate>{formatDate(task.todoAt)}</TaskDate>
                                 <TaskContent>
                                     <TaskTitle>{task.title}</TaskTitle>
                                     <Checkbox
@@ -78,15 +94,15 @@ export const TodayTasks = ({ onCreateTask, onSubmit }: TaskProps) => {
             <TasksListWrapper/>
             {incompleteTasks.length > 0 && (
                 <>
-                    <SectionHeader completed={false}>미완료</SectionHeader>
+                    <SectionHeader $completed={false}>미완료</SectionHeader>
                     <TasksList>
                         {incompleteTasks.map((task) => (
                             <TaskItem
                                 key={task.todoId}
-                                completed={task.completed}
+                                $completed={task.completed}
                                 color={task.color}
                             >
-                                <TaskDate>{task.todoAt}</TaskDate>
+                                <TaskDate>{formatDate(task.todoAt)}</TaskDate>
                                 <TaskContent>
                                     <TaskTitle>{task.title}</TaskTitle>
                                     <ButtonGroup>
@@ -124,11 +140,11 @@ const TasksWrapper = styled.div`
 `;
 
 // 완료/미완료 섹션 헤더 스타일
-const SectionHeader = styled(T7).attrs<{ completed: boolean }>({})`
+const SectionHeader = styled(T7).attrs<{ $completed: boolean }>({})`
     display: inline-block;
     padding: 8px 20px; /* 내부 여백 추가 */
-    color: ${({ completed }) => (completed ? "#6373FF" : "#FFF")};
-    background-color: ${({ completed }) => (completed ? "#F6F7FF" : "#6373FF")}; /* 배경색 */
+    color: ${({ $completed }) => ($completed ? "#6373FF" : "#FFF")};
+    background-color: ${({ $completed }) => ($completed ? "#F6F7FF" : "#6373FF")}; /* 배경색 */
     border-radius: 40px; /* 둥근 테두리 */
     text-align: center;
 `;
@@ -177,15 +193,15 @@ const ButtonGroup = styled.div`
     gap: 8px; /* 버튼과 체크박스 사이 간격 */
 `;
 
-const TaskItem = styled.li<{ completed: boolean; color: string }>`
+const TaskItem = styled.li<{ $completed: boolean; color: string }>`
     width: 100%;
     display: flex;
     align-items: center;
     gap: 12px;
     padding: 12px;
     border-radius: 8px;
-    background-color: ${({ completed, color, theme }) =>
-            completed ? theme.colors.coolGray10 : color}; /* 완료 여부에 따라 배경색 설정 */
+    background-color: ${({ $completed, color, theme }) =>
+            $completed ? theme.colors.coolGray10 : color}; /* 완료 여부에 따라 배경색 설정 */
     margin-bottom: 8px;
 
     &:last-child {
