@@ -32,6 +32,7 @@ export const CalendarPage = () => {
                     year={year}
                     month={month}
                     changeMonth={changeMonth}
+                    selectedTab={selectedTab}
                     setSelectedTab={setSelectedTab}
                 />
                 <WeekDays />
