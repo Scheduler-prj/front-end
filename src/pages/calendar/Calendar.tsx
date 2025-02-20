@@ -11,6 +11,7 @@ interface DayBoxProps {
 interface CalendarProps {
     year: number;
     month: number; // 0: 1월, 11: 12월
+    selectedTab: "all" | "plans" | "tasks";  // 필터링을 위한 prop 추가 -> 전체, 할일, 일정
 }
 
 // 날짜별로 할 일을 정리하는 함수
@@ -41,7 +42,7 @@ const organizeTasksByDate = (
     return mergedItems;
 };
 
-export const Calendar = ({year, month}: CalendarProps) => {
+export const Calendar = ({year, month, selectedTab}: CalendarProps) => {
     const { tasks } = useTasksStore();  // 할 일 데이터 가져오기
     const { plans, fetchPlans } = usePlanStore();  // plans 가져오기 + fetchPlans 추가
     const { isLoggedIn } = useAuthStore(); // 로그인 상태 가져오기
@@ -99,8 +100,15 @@ export const Calendar = ({year, month}: CalendarProps) => {
         <CalendarGrid>
             {days.map((day, index) => {
                 //최대 3개의 일정만 표시
-                const tasksToDisplay = isLoggedIn ? day.tasks.slice(0, 3) : [];
-                const moreCount = isLoggedIn ? day.tasks.length - 3 : 0;
+                const filteredTasks =
+                    selectedTab === "tasks"
+                        ? day.tasks.filter(task => !task.color.includes("#D9E2FF")) //일정과 할 일을 구분하는 조건 추가
+                        : selectedTab === "plans"
+                            ? day.tasks.filter(task => task.color.includes("#D9E2FF"))
+                            : day.tasks; // "all"이면 전체 출력
+
+                const tasksToDisplay = isLoggedIn ? filteredTasks.slice(0, 3) : [];
+                const moreCount = isLoggedIn ? filteredTasks.length - 3 : 0;
 
                 return (
                     <DayBox key={index} $isCurrentMonth={day.isCurrentMonth}>
@@ -161,7 +169,9 @@ const DayNumber = styled.div<{ $isToday: boolean }>`
     align-items: center;
     width: 40px;
     height: 40px;
-    border-radius: 100px;
+    aspect-ratio: 1 / 1; /*정사각형 유지 */
+    border-radius: 50%; /*정확한 원형 유지 */
+    flex-shrink: 0; /*부모 크기에 영향을 받지 않도록 설정 */
     background: ${({ $isToday, theme }) =>
             $isToday ? theme.colors.primary : "transparent"};
     color: ${({ $isToday, theme }) =>

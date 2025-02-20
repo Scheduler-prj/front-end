@@ -8,9 +8,10 @@ interface CalendarHeaderProps {
     year: number;
     month: number; // 0: 1월, 11: 12월
     changeMonth: (offset: number) => void;
+    setSelectedTab: (tab: "all" | "plans" | "tasks") => void;  // 필터링 역할
 }
 
-export const CalendarHeader = ({year, month, changeMonth }:CalendarHeaderProps) => {
+export const CalendarHeader = ({year, month, changeMonth, setSelectedTab }:CalendarHeaderProps) => {
     const monthNames = [
         "January",
         "February",
@@ -38,9 +39,9 @@ export const CalendarHeader = ({year, month, changeMonth }:CalendarHeaderProps) 
                 </button>
             </MonthNavigation>
             <TabMenu>
-                <TabButton>전체</TabButton>
-                <TabButton>일정</TabButton>
-                <TabButton>할일</TabButton>
+                <TabButton onClick={() => setSelectedTab("all")}>전체</TabButton>
+                <TabButton onClick={() => setSelectedTab("plans")}>일정</TabButton>
+                <TabButton onClick={() => setSelectedTab("tasks")}>할일</TabButton>
             </TabMenu>
         </HeaderContainer>
     );
