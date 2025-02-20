@@ -42,8 +42,14 @@ export const TodayTasks = ({ onCreateTask, onSubmit }: TaskProps) => {
         return `${parseInt(month, 10)}/${parseInt(day, 10)}`; // "02" → "2", "10" → "10"
     };
 
-    const completedTasks = tasks.filter((task) => task.completed);
-    const incompleteTasks = tasks.filter((task) => !task.completed);
+    // 오늘 날짜 구하기
+    const todayDate = new Date().toISOString().split("T")[0]; // "2025-02-20"
+
+    // 오늘 할 일만 필터링
+    const todayTasks = tasks.filter((task) => task.todoAt.split("T")[0] === todayDate);
+
+    const completedTasks = todayTasks.filter((task) => task.completed);
+    const incompleteTasks = todayTasks.filter((task) => !task.completed);
 
     const handleSubmitClick = (task: Task) => {
         onSubmit(task); // 부모 컴포넌트로 `onSubmit` 콜백 전달

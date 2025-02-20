@@ -96,10 +96,6 @@ const TabButton = styled.button<{$isActive : boolean}>`
     border: 1.5px solid ${({ theme }) => theme.colors.primary};
     color: ${({ theme, $isActive }) =>
             $isActive ? theme.colors.primary : theme.colors.primary};
-
-    &:hover {
-        background-color: ${({ theme }) => theme.colors.coolGray8};
-    }
 `;
 
 const TabMenu = styled.div`

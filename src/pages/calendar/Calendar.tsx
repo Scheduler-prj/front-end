@@ -23,20 +23,20 @@ const organizeTasksByDate = (
     tasks: { todoAt: string; title: string; color : string }[],
     plans: {startDate: string; title: string; color: string }[],
 ) => {
-    const mergedItems: Record<string, { title: string; color: string }[]> = {};
+    const mergedItems: Record<string, { title: string; color: string; type: "tasks" | "plans" }[]> = {};
 
     // 할 일 추가
     tasks.forEach((task) => {
         const dateKey = formatDateKey(task.todoAt);
         if (!mergedItems[dateKey]) mergedItems[dateKey] = [];
-        mergedItems[dateKey].push({ title: task.title, color: task.color });
+        mergedItems[dateKey].push({ title: task.title, color: task.color, type: "tasks" });
     });
 
     // 일정 추가
     plans.forEach((plan: { startDate: string; title: string; color: string }) => {
         const dateKey = formatDateKey(plan.startDate);
         if (!mergedItems[dateKey]) mergedItems[dateKey] = [];
-        mergedItems[dateKey].push({ title: plan.title, color: plan.color });
+        mergedItems[dateKey].push({ title: plan.title, color: plan.color, type: "plans" });
     });
 
     return mergedItems;
@@ -54,14 +54,14 @@ export const Calendar = ({year, month, selectedTab}: CalendarProps) => {
 
     // 할 일 + 일정 함께 정리
     const tasksAndPlansByDate = organizeTasksByDate(
-        tasks.map(task => ({ todoAt: task.todoAt, title: task.title, color: task.color })),
-        plans.map(plan => ({ startDate: plan.startDate, title: plan.title, color: plan.color }))
+        tasks.map(task => ({ todoAt: task.todoAt, title: task.title, color: task.color, type: "tasks" })),
+        plans.map(plan => ({ startDate: plan.startDate, title: plan.title, color: plan.color, type: "plans" })),
     );
 
     const generateDays = (
         year: number,
         month: number,
-        tasksByDate: Record<string, { title: string; color: string }[]>
+        tasksByDate: Record<string, { title: string; color: string; type: "tasks" | "plans" }[]>
     ) => {
         const today = new Date(); // 오늘 날짜
         const isToday = (d: number, m: number, y: number) =>
@@ -100,15 +100,22 @@ export const Calendar = ({year, month, selectedTab}: CalendarProps) => {
         <CalendarGrid>
             {days.map((day, index) => {
                 //최대 3개의 일정만 표시
+                // const filteredTasks =
+                //     selectedTab === "tasks"
+                //         ? day.tasks.filter(task => !task.color.includes("#D9E2FF")) //일정과 할 일을 구분하는 조건 추가
+                //         : selectedTab === "plans"
+                //             ? day.tasks.filter(task => task.color.includes("#D9E2FF"))
+                //             : day.tasks; // "all"이면 전체 출력
+
                 const filteredTasks =
                     selectedTab === "tasks"
-                        ? day.tasks.filter(task => !task.color.includes("#D9E2FF")) //일정과 할 일을 구분하는 조건 추가
+                        ? day.tasks.filter(task => task.type === "tasks") // "tasks" 타입만 필터링
                         : selectedTab === "plans"
-                            ? day.tasks.filter(task => task.color.includes("#D9E2FF"))
+                            ? day.tasks.filter(task => task.type === "plans") // "plans" 타입만 필터링
                             : day.tasks; // "all"이면 전체 출력
 
-                const tasksToDisplay = isLoggedIn ? filteredTasks.slice(0, 3) : [];
-                const moreCount = isLoggedIn ? filteredTasks.length - 3 : 0;
+                const tasksToDisplay = isLoggedIn ? filteredTasks.slice(0, 2) : [];
+                const moreCount = isLoggedIn ? filteredTasks.length - 2 : 0;
 
                 return (
                     <DayBox key={index} $isCurrentMonth={day.isCurrentMonth}>
@@ -117,9 +124,16 @@ export const Calendar = ({year, month, selectedTab}: CalendarProps) => {
                             {/*로그인 상태일 때만 할 일(Task) 렌더링 */}
                             {isLoggedIn &&
                                 tasksToDisplay.map((task, idx) => (
-                                    <Task key={idx} color={task.color}>
-                                        {task.title}
-                                    </Task>
+                                    task.type === "plans" ? ( // 일정일 경우
+                                        <ScheduleTask>
+                                            <ScheduleTaskIndicator color={task.color} />
+                                            <ScheduleTaskText>{task.title}</ScheduleTaskText>
+                                        </ScheduleTask>
+                                    ) : ( // 할 일일 경우
+                                        <TodoTask key={idx} color={task.color}>
+                                            {task.title}
+                                        </TodoTask>
+                                    )
                                 ))
                             }
                             {/* 초과하는 일정이 있을 경우 "+N개" 표시 */}
@@ -189,12 +203,12 @@ const Tasks = styled.div`
     min-height: 80px; /* 최소 높이 설정하여 개수가 적어도 동일한 높이 유지 */
 `;
 
-const Task = styled.div<{ color: string }>`
+const TodoTask = styled.div<{ color: string }>`
     display: flex;
     align-items: center;
     min-width: 100px;  /* 최소 너비 통일 */
     max-width: 120px; /* 최대 너비 설정 */
-    height: 15px; /* 일정한 높이 */
+    height: 18px; /* 일정한 높이 */
     padding: 2px 12px;
     gap: 10px;
     align-self: stretch;
@@ -207,6 +221,56 @@ const Task = styled.div<{ color: string }>`
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+`;
+
+const ScheduleTask = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    min-width: 54px;  /* 최소 너비 */
+    max-width: 124px; /* 최대 너비 */
+    height: 18px;
+    border: 0.4px solid #CACCD7; /* 테두리 적용 */
+    background: #FFFFFF; /* 전체 배경은 흰색 */
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-radius: 10.5px 10.5px 10.5px 10.5px; /* 오른쪽만 둥글게 */
+    align-self: stretch;  /* 부모 컨테이너 크기에 맞게 조절 */
+    position: relative;
+    box-sizing: border-box; /* border 포함 크기 조정 */
+    margin : 0;
+`;
+
+// 왼쪽 파란색 바
+const ScheduleTaskIndicator = styled.div<{color: string}>`
+    width: 12px;
+    height: 21px;
+    background: ${({color}) => color};
+    border-radius: 10.5px 0px 0px 10.5px;
+    // border: 0.4px solid #CACCD7;
+    flex-shrink: 0; /* 크기 축소 방지 */
+    box-sizing: border-box;
+    margin: 0;
+`;
+
+/* 일정 텍스트 컨테이너 */
+const ScheduleTaskText = styled.div`
+    display: flex;
+    align-items: center;
+    min-width: 42px;
+    max-width: 112px;
+    padding: 2px 12px 2px 8px;
+    // border: 0.4px solid #CACCD7;
+    background: #FFF;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 12px;
+    font-weight: 500;
+    margin : 0;
 `;
 
 const MoreTasks = styled.div`

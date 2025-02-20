@@ -26,6 +26,7 @@ const dummyPlans: Plan[] = [
     { planId: 1, title: "스터디 모임", startDate: "2025-02-10T10:00:00Z", endDate: "2025-02-10T12:00:00Z", color: "#FFD8DA", alarm: true, comment: "", clear: false },
     { planId: 2, title: "운동하기", startDate: "2025-02-12T18:00:00Z", endDate: "2025-02-12T19:00:00Z", color: "#FFE8C9", alarm: false, comment: "", clear: true },
     { planId: 3, title: "친구 만나기", startDate: "2025-02-15T15:00:00Z", endDate: "2025-02-15T17:00:00Z", color: "#D9E2FF", alarm: true, comment: "", clear: false },
+    { planId: 4, title: "놀기", startDate: "2025-02-20T15:00:00Z", endDate: "2025-02-21T17:00:00Z", color: "#D9E2FF", alarm: true, comment: "", clear: false }
 ];
 
 export const usePlanStore = create<PlanState>((set) => ({
