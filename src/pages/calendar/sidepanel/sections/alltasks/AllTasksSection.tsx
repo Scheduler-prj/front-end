@@ -1,12 +1,16 @@
 import React, {useEffect, useState, useCallback} from 'react';
 import styled from "styled-components";
-import {useTasksStore} from "../../../../../store/feature/tasksStore";
+import {Task, useTasksStore} from "../../../../../store/feature/tasksStore";
 import { ReactComponent as Edit } from "../../../../../assets/icons/calendar/rightsidebar/Edit.svg"
 import {SubT1, T6, T7} from "../../../../../styles/Typography";
 import {TaskCreation} from "../today/TaskCreation";
 import {useAuthStore} from "../../../../../store/feature/authStore";
 
-export const AllTasksSection = () => {
+interface AllTasksSectionProps {
+    onSubmit: (task: Task) => void;
+}
+
+export const AllTasksSection = ({onSubmit}:AllTasksSectionProps) => {
     const {tasks, fetchTasks, toggleTask, submitTask} = useTasksStore();
     const { isLoggedIn } = useAuthStore();
 
@@ -54,6 +58,11 @@ export const AllTasksSection = () => {
         setIsCreating(true); // "할 일 생성하기" 버튼 클릭 시 상태 변경
     };
 
+    const handleSubmitClick = (task: Task) => {
+        console.log("성과 제출 버튼 클릭됨 : ", task);  // 디버깅용 로그
+        onSubmit(task); // 부모 컴포넌트로 `onSubmit` 콜백 전달
+    };
+
     const handleBack = () => {
         setIsCreating(false); // TaskCreation 에서 뒤로가기 시 상태 복귀
     };
@@ -98,7 +107,7 @@ export const AllTasksSection = () => {
                             <TaskTitle>{task.title}</TaskTitle>
                             <ButtonGroup>
                                 {activeTab === "incomplete" && (
-                                    <SubmitButton onClick={() => submitTask(task.todoId)}>
+                                    <SubmitButton onClick={() => handleSubmitClick(task)}>
                                         성과 제출
                                     </SubmitButton>
                                 )}
