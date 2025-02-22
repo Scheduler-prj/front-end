@@ -9,13 +9,13 @@ import {useAuthStore} from "../store/feature/authStore";
 export const Layout = () => {
     const location = useLocation();
     const navigate = useNavigate();
-    const { isLoggedIn } = useAuthStore(); // ✅ Zustand 활용
-    const [loginState, setLoginState] = useState(isLoggedIn); // ✅ 로그인 상태 관리
-    const handleLogin = () => setLoginState(true); // ✅ 로그인 처리 함수
+    const { isLoggedIn } = useAuthStore(); // Zustand 활용
+    const [loginState, setLoginState] = useState(isLoggedIn); // 로그인 상태 관리
+    const handleLogin = () => setLoginState(true); // 로그인 처리 함수
 
     // const handleLogin = () => setIsLoggedIn(true); // 로그인 상태 변경
 
-    // ✅ "/" 경로로 접근하면 "/calendar"로 리다이렉트
+    // "/" 경로로 접근하면 "/calendar"로 리다이렉트
     useEffect(() => {
         if (location.pathname === "/") {
             navigate("/calendar", { replace: true });
