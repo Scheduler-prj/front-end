@@ -9,6 +9,7 @@ import {RoutineCreation} from "./sections/today/RoutineCreation";
 import {TaskCreation} from "./sections/today/TaskCreation";
 import {SubmissionAchieve} from "./SubmissionAchieve";
 import {Task} from "../../../store/feature/tasksStore"
+import {media} from "../../../styles/media";
 
 export const SidePanel = () => {
     const [activeTab, setActiveTab] = useState("today");
@@ -128,4 +129,20 @@ const PanelWrapper = styled.div`
     align-items: flex-start; /* 자식 요소 왼쪽 정렬 */
     background-color:  ${({ theme }) => theme.colors.coolGray10};
     border-radius: 16px;
+
+    ${media.desktop`
+        max-width: 460px;
+        gap: 36px;
+    `}
+
+    ${media.tablet`
+        max-width: 380px;
+        padding: 16px;
+        gap: 32px;
+        align-self: center; /* 태블릿에서 중앙 정렬 */
+    `}
+
+    ${media.phone`
+        display: none; /* 모바일에서는 숨김 */
+    `}
 `;

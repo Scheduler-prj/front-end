@@ -16,7 +16,7 @@ export const NavWrapper = styled.div<{ isMobile: boolean; isNavOpen: boolean }>`
 
     ${media.desktop`
     width: 240px; /* 1920~1280px 해상도에서 너비 줄이기 */
-    // max-width: 260px;
+    max-width: 260px;
     padding: 20px;
   `}
 
@@ -110,6 +110,6 @@ export const UserCard = styled.div`
   `}
 
     ${media.tablet`
-    display: none; /* 💡 1279~768px 에서는 숨김 */
+    display: none; /* 1279~768px 에서는 숨김 */
   `}
 `;

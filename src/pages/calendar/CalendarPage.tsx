@@ -4,6 +4,7 @@ import {CalendarHeader} from "./CalendarHeader";
 import {WeekDays} from "./WeekDays";
 import {Calendar} from "./Calendar";
 import {SidePanel} from "./sidepanel/SidePanel";
+import {media} from "../../styles/media";
 
 export const CalendarPage = () => {
     // 현재 날짜를 기반으로 초기 상태 설정
@@ -50,37 +51,61 @@ export const CalendarPage = () => {
 const CalendarWrapper = styled.div`
     display: flex;
     flex-direction: row;
-    min-width: 570px;
-    width : 1560px;
+    width: 100%;
+    // min-width: 570px;
+    // max-width : 1560px;
     justify-content: space-between; /* 위-아래 간격 조절 */
     padding: 20px 36px;
     gap: 40px;
-    flex: 1 0 0;
+    flex: 1;
     // background: ${({theme}) => theme.colors.white};
     box-sizing: border-box; /* padding 포함 크기 계산 */
 
-    @media (max-width: 1024px) {
-        max-width: calc(100% - 20%); /* 오른쪽 20% 거리 유지 */
-        margin: 60px auto 20px 20px; /* 상, 좌 간격 축소 */
-    }
+    ${media.desktop`
+        width: 100%;
+    `}
 
-    @media (max-width: 768px) {
-        max-width: calc(100% - 10%); /* 더 작은 화면에서는 10% 거리 유지 */
-        margin: 40px auto 20px 10px; /* 상단 간격 축소 */
-    }
+    ${media.tablet`
+        max-width: calc(100% - 20%); /* 1024px 이하 */
+        margin: 60px auto 20px 20px;
+        flex-direction: column; /* 태블릿에서는 세로 배치 */
+    `}
+
+    ${media.phone`
+        max-width: calc(100% - 10%); /* 768px 이하 */
+        margin: 40px auto 20px 10px;
+        flex-direction: column;
+        padding: 16px;
+    `}
 `;
 
 const CalendarSection = styled.div`
     display: flex;
     flex-direction: column; /* 세로 정렬 */
     flex: 1 0 0; /* 너비 비율 */
-    width : 980px;
+    width : calc(100% / 1.5918);
     padding: 24px 40px; /* 내부 여백 */
     gap: 40px; /* 자식 요소 간의 간격 */
     align-items: flex-start;
     background: ${({ theme }) => theme.colors.white};
     border-radius: 20px;
     box-shadow: 1px 1px 20px 0px rgba(0, 0, 0, 0.04); /* 그림자 */
+
+    ${media.desktop`
+        width: 100%;
+    `}
+
+    ${media.tablet`
+        max-width: 100%;
+        padding: 20px;
+        gap: 24px;
+    `}
+
+    ${media.phone`
+        padding: 16px;
+        gap: 20px;
+        border-radius: 12px; /* 모바일에서는 둥글기 줄이기 */
+    `}
 `;
 
 const CalendarBody = styled.div`

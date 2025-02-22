@@ -52,7 +52,9 @@ export const Layout = () => {
                         onLogin={handleLogin}   // 추가
                         onMenuClick={toggleNav}
                     />
-                    <Outlet />
+                    <PageContainer> {/* Outlet 감싸기 */}
+                        <Outlet />
+                    </PageContainer>
                 </ContentWrapper>
             </MainWrapper>
         </AppWrapper>
@@ -77,7 +79,16 @@ const MainWrapper = styled.div`
 `;
 
 const ContentWrapper = styled.div`
+    width: 100%;
   flex: 1; /* NavigationBar 를 제외한 나머지 공간 채움 */
-  overflow: auto; /* 스크롤 가능하도록 설정 */
+    display: flex;
+    flex-direction: column; /* HeaderLayout과 Outlet을 위아래로 배치 */
+    overflow: auto; /* 스크롤 가능하도록 설정 */
   background-color:  ${({ theme }) => theme.colors.coolGray10};
+`;
+
+const PageContainer = styled.div`
+  flex: 1; /* HeaderLayout 아래의 나머지 공간을 차지 */
+  display: flex; /* 내부 요소 정렬을 유지 */
+  width: 100%;
 `;

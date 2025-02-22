@@ -140,7 +140,8 @@ const HeaderContainer = styled.div`
   justify-content: space-between;
   align-items: center;
     width: 100%; /* 화면 전체 너비 */
-    min-height: 60px; /* 최소 높이 */
+    //max-width: 1560px;
+    //min-height: 60px; /* 최소 높이 */
   align-self: stretch;
   padding: 16px 24px; /* 필요에 따라 패딩 조정 */
   background-color: ${({ theme }) => theme.colors.coolGray10};
