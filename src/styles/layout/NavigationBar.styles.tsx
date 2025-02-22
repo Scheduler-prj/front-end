@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import {media} from "../media";
 
-export const NavWrapper = styled.div`
+export const NavWrapper = styled.div<{ isMobile: boolean; isNavOpen: boolean }>`
   height: 100%;
   // min-width: 240px; /* 최소 너비 */
     // max-width: 280px; /* 최대 너비 */
@@ -26,7 +26,11 @@ export const NavWrapper = styled.div`
     padding: 36px 14px 629px 13px;
     align-items: center;
     gap: 31px;
-  `}
+  `} 
+        // 767px 이하에서는 기본적으로 숨김
+    ${({ isMobile, isNavOpen }) => isMobile && !isNavOpen && `
+        display: none;
+    `}
 `;
 
 export const Logo = styled.div`

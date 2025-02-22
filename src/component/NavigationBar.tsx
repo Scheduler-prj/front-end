@@ -19,12 +19,17 @@ import { T7, T6, B6 } from "../styles/Typography";
 import {useAuthStore} from "../store/feature/authStore";
 import useDeviceQueries from "../hook/useDeviceQueries";
 
-export const NavigationBar = ({isLoggedIn} : {isLoggedIn:boolean}) => {
+type NavigationBarProps = {
+    isLoggedIn : boolean;
+    isNavOpen : boolean;
+}
+
+export const NavigationBar = ({isLoggedIn, isNavOpen} : NavigationBarProps) => {
     const navigate = useNavigate();
     const location = useLocation(); // 현재 경로를 가져오기 위한 훅
 
     const { userInfo } = useAuthStore(); // Zustand에서 로그인 상태와 사용자 정보 가져오기
-    const { isTablet } = useDeviceQueries();  // 1279px 이하 감지
+    const { isTablet, isMobile } = useDeviceQueries();  // 1279px 이하, 767px 이하 감지
 
     const menus = [
         { name: "캘린더", path: "/calendar", icon: CalendarIcon },
@@ -35,7 +40,10 @@ export const NavigationBar = ({isLoggedIn} : {isLoggedIn:boolean}) => {
     ];
 
     return (
-        <NavWrapper>
+        <NavWrapper
+            isMobile={isMobile}
+            isNavOpen={isNavOpen}
+        >
             <Logo>
                 {isTablet ? (
                     <TabletLogoIcon width="53px" height="53px" /> // 1279~768px 로고

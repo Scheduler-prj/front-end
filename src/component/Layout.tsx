@@ -5,6 +5,7 @@ import { NavigationBar } from "./NavigationBar";
 import styled from "styled-components";
 import {HeaderLayout} from "./HeaderLayout";
 import {useAuthStore} from "../store/feature/authStore";
+import useDeviceQueries from "../hook/useDeviceQueries";
 
 export const Layout = () => {
     const location = useLocation();
@@ -13,7 +14,9 @@ export const Layout = () => {
     const [loginState, setLoginState] = useState(isLoggedIn); // 로그인 상태 관리
     const handleLogin = () => setLoginState(true); // 로그인 처리 함수
 
-    // const handleLogin = () => setIsLoggedIn(true); // 로그인 상태 변경
+    // 모바일 네비게이션 바 상태 관리 (햄버거 버튼 클릭시 토글)
+    const [isNavOpen, setIsNavOpen] = useState(false);
+    const toggleNav = () => setIsNavOpen(!isNavOpen);
 
     // "/" 경로로 접근하면 "/calendar"로 리다이렉트
     useEffect(() => {
@@ -38,12 +41,16 @@ export const Layout = () => {
         <AppWrapper>
             {/* 네비게이션 바와 콘텐츠 영역 */}
             <MainWrapper>
-                <NavigationBar isLoggedIn={isLoggedIn}/>
+                <NavigationBar
+                    isLoggedIn={isLoggedIn}
+                    isNavOpen={isNavOpen}
+                />
                 <ContentWrapper>
                     <HeaderLayout
                         currentPage={currentPage}
                         isLoggedIn={loginState} // 추가
                         onLogin={handleLogin}   // 추가
+                        onMenuClick={toggleNav}
                     />
                     <Outlet />
                 </ContentWrapper>
@@ -51,6 +58,12 @@ export const Layout = () => {
         </AppWrapper>
     );
 };
+
+// <HeaderLayout
+//     currentPage={currentPage}
+//     isLoggedIn={loginState} // 추가
+//     onLogin={handleLogin}   // 추가
+// />
 
 const AppWrapper = styled.div`
     display: flex;
