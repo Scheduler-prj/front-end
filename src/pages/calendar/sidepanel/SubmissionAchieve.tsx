@@ -87,9 +87,9 @@ export const SubmissionAchieve = ({ task, onBack, onSubmit }: SubmissionProps) =
 const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
-    width: 460px;
     min-width: 310px;
-    max-width: 460px;
+    width: 100%;
+    // max-width: 460px;
     padding: 24px;
     border-radius: 20px;
     background: #fff;

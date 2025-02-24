@@ -131,7 +131,7 @@ const TasksWrapper = styled.div`
     display: flex;
     flex-direction: column;
     min-width: 310px;
-    max-width: 460px;
+    width: 100%;
     padding: 24px;
     gap: 10px;
     align-items: flex-start;

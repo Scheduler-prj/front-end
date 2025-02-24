@@ -62,7 +62,10 @@ const CalendarWrapper = styled.div`
     box-sizing: border-box; /* padding 포함 크기 계산 */
 
     ${media.desktop`
+        padding-left: 40px;
+        padding-right: 40px;
         width: 100%;
+        gap: 40px;
     `}
 
     ${media.tablet`
@@ -83,7 +86,7 @@ const CalendarSection = styled.div`
     display: flex;
     flex-direction: column; /* 세로 정렬 */
     flex: 1 0 0; /* 너비 비율 */
-    width : calc(100% / 1.5918);
+    min-width : 60%;
     padding: 24px 40px; /* 내부 여백 */
     gap: 40px; /* 자식 요소 간의 간격 */
     align-items: flex-start;
@@ -92,7 +95,9 @@ const CalendarSection = styled.div`
     box-shadow: 1px 1px 20px 0px rgba(0, 0, 0, 0.04); /* 그림자 */
 
     ${media.desktop`
-        width: 100%;
+        flex: 1.8;
+        min-width: 55%;
+        padding: 20px;
     `}
 
     ${media.tablet`

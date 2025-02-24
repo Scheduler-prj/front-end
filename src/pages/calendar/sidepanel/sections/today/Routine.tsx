@@ -71,7 +71,7 @@ const RoutineWrapper = styled.div`
     display: flex;
     flex-direction: column;
     min-width: 310px;
-    max-width: 460px;
+    width: 100%;
     padding: 24px;
     gap: 10px;
     align-items: flex-start;
@@ -117,7 +117,7 @@ const RoutineItem = styled.li<{ $completed: boolean }>`
     justify-content: space-between; /* 체크박스와 텍스트를 양쪽에 배치 */
     align-items: center;
     min-width: 262px;
-    max-width: 412px;
+    width: 100%;
     padding: 12px 12px 12px 20px;
     gap: 12px;
     align-self: stretch;

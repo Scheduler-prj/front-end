@@ -123,7 +123,8 @@ const CreationWrapper = styled.div`
     flex-direction: column;
     width: 100%;
     min-width: 310px;
-    max-width: 460px;
+    //max-width: 460px;
+    width: 100%;
     padding: 24px;
     align-items: flex-start;
     gap: 10px;

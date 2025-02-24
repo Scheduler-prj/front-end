@@ -122,17 +122,18 @@ export const SidePanel = () => {
 const PanelWrapper = styled.div`
     display: flex;
     flex-direction: column; /* 세로 정렬 */
-    flex: 1 0 0; /* 너비 비율 */
+    flex: 1;
     min-width: 260px;
-    max-width: 460px;
+    max-width: 38%;
     gap: 40px; /* 자식 요소 간의 간격 */
     align-items: flex-start; /* 자식 요소 왼쪽 정렬 */
     background-color:  ${({ theme }) => theme.colors.coolGray10};
     border-radius: 16px;
-
+    
     ${media.desktop`
-    width: 100%;
-        gap: 36px;
+        flex: 0.9; // 화면이 작아질 때 유연하게 조정
+        max-width: 60%;
+        min-width: 240px;
     `}
 
     ${media.tablet`

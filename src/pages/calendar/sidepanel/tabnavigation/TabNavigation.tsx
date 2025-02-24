@@ -32,8 +32,8 @@ export const TabNavigation = ({ activeTab, setActiveTab }: TabNavigationProps) =
 
 const TabWrapper = styled.div`
   display: flex;
+    width: 100%;
   min-width: 310px;
-  max-width: 460px;
   padding: 12px;
   align-items: center;
   gap: 8px;
