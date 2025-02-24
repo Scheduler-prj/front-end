@@ -139,7 +139,7 @@ const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-    width: 100%; /* 화면 전체 너비 */
+    width: 99%; /* 화면 전체 너비 */
     //max-width: 1560px;
     //min-height: 60px; /* 최소 높이 */
   align-self: stretch;

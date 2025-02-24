@@ -121,7 +121,7 @@ export const RoutineCreation = ({ onBack }: { onBack: () => void }) => {
 const CreationWrapper = styled.div`
     display: flex;
     flex-direction: column;
-    width: 460px;
+    width: 100%;
     min-width: 310px;
     max-width: 460px;
     padding: 24px;
@@ -209,34 +209,50 @@ const Label = styled.div`
 const LabelInline = styled.div`
     display: flex;
     align-items: center; /* 세로 가운데 정렬 */
-    gap: 8px; /* "알림"과 체크박스 사이의 간격 */
+    gap: 14px; /* "알림"과 체크박스 사이의 간격 */
 `;
 
 const InputTitle = styled(Cap1)`
+    white-space: nowrap; /* 강제 줄 바꿈 방지 */
+    line-height: 1;
+    margin-top: 3px;
 `;
 
 const DaySelector = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 8px;
+    width: 100%;
+    gap: 16px;
 `;
 
 const DayList = styled.div`
     display: flex;
     gap: 8px;
+    overflow-x: auto;  /* 가로 스크롤 가능하도록 설정 */
+    white-space: nowrap;  /* 줄 바꿈 방지 */
+    flex-grow: 1;
+    max-width: 100%;
+
+    &::-webkit-scrollbar-track {
+        background: #f0f0f0;
+    }
 `;
 
 const DayButton = styled.button<{ selected: boolean }>`
-    width: 100%;
-    height: 100%;
-    padding: 8px 12px;
+    width: 24px;
+    height: 24px;
     border: none;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
     border-radius: 50%;
     background-color: ${(props) => (props.selected ? "#6373ff" : "#fff")}; /* 선택 여부에 따라 배경색 변경 */
     color: ${(props) => (props.selected ? "#fff" : "#6373ff")}; /* 선택 여부에 따라 텍스트 색 변경 */
     font-size: 14px;
     cursor: pointer;
+    flex-shrink: 0;
+    
     &:hover {
         background-color: ${(props) => (props.selected ? "#6373ff" : "#fff")}; /* 선택 상태에 따른 hover 색상 */
     }

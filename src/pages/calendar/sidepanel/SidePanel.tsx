@@ -131,7 +131,7 @@ const PanelWrapper = styled.div`
     border-radius: 16px;
 
     ${media.desktop`
-        max-width: 460px;
+    width: 100%;
         gap: 36px;
     `}
 

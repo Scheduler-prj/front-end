@@ -76,7 +76,9 @@ export const ScheduleSection = () => {
                         <ScheduleIndicator color={plan.color} /> {/* Indicator 추가 */}
                         <ScheduleDate>{formatDate(plan.startDate)}</ScheduleDate>
                         <ScheduleContent>
-                            <ScheduleTitle>{plan.title}</ScheduleTitle>
+                            <ScheduleTitleWrapper>
+                                <ScheduleTitle>{plan.title}</ScheduleTitle>
+                            </ScheduleTitleWrapper>
                             <ButtonGroup>
                                 <Checkbox
                                     type="checkbox"
@@ -177,14 +179,28 @@ const ScheduleIndicator = styled.div<{ color: string }>`
 
 const ScheduleContent = styled.div`
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
     flex: 1;
-    width: 100%;
-    padding-left: 24px; //Indicator와 내용 간 간격 조정 */
+    gap: 8px;
+    max-width: 100%;
+    min-width: 0;
+    padding-left: 12px;
 `;
 
 const ScheduleTitle = styled(SubT1)`
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    flex-shrink: 1;
+`;
+
+const ScheduleTitleWrapper = styled.div`
+    flex: 1;  /* 텍스트가 가능한 최대 공간 차지 */
+    //max-width: calc(100% - 100px); /* 버튼 그룹 공간 확보 */
+    min-width: 30px;
+    overflow: hidden;
 `;
 
 const ButtonGroup = styled.div`

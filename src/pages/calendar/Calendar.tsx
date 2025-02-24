@@ -183,9 +183,9 @@ const DayNumber = styled.div<{ $isToday: boolean }>`
     align-items: center;
     width: 40px;
     height: 40px;
-    aspect-ratio: 1 / 1; /*정사각형 유지 */
-    border-radius: 50%; /*정확한 원형 유지 */
-    flex-shrink: 0; /*부모 크기에 영향을 받지 않도록 설정 */
+    aspect-ratio: 1 / 1;  /*정사각형 유지 */
+    border-radius: 50%;  /*정확한 원형 유지 */
+    flex-shrink: 0;  /*부모 크기에 영향을 받지 않도록 설정 */
     background: ${({ $isToday, theme }) =>
             $isToday ? theme.colors.primary : "transparent"};
     color: ${({ $isToday, theme }) =>
@@ -201,13 +201,15 @@ const Tasks = styled.div`
     gap: 4px;
     overflow: hidden;
     min-height: 80px; /* 최소 높이 설정하여 개수가 적어도 동일한 높이 유지 */
+    min-width: 0;
 `;
 
 const TodoTask = styled.div<{ color: string }>`
-    display: flex;
+    display: block;
     align-items: center;
-    min-width: 100px;  /* 최소 너비 통일 */
-    max-width: 120px; /* 최대 너비 설정 */
+    width: auto;
+    min-width: 54px;  /* 최소 너비 통일 */
+    max-width: 124px; /* 최대 너비 설정 */
     height: 18px; /* 일정한 높이 */
     padding: 2px 12px;
     gap: 10px;
@@ -221,12 +223,14 @@ const TodoTask = styled.div<{ color: string }>`
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    box-sizing: border-box;
 `;
 
 const ScheduleTask = styled.div`
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    width: auto;
     min-width: 54px;  /* 최소 너비 */
     max-width: 124px; /* 최대 너비 */
     height: 18px;
@@ -258,7 +262,7 @@ const ScheduleTaskIndicator = styled.div<{color: string}>`
 
 /* 일정 텍스트 컨테이너 */
 const ScheduleTaskText = styled.div`
-    display: flex;
+    display: block;
     align-items: center;
     min-width: 42px;
     max-width: 112px;
