@@ -3,7 +3,6 @@ import styled, { DefaultTheme }  from "styled-components";
 import {ReactComponent as NotificationIcon} from "../assets/icons/header/NotificationIcon.svg";
 import {ReactComponent as NavMenuIcon} from "../assets/icons/navigation-bar/NavMenuIcon.svg";
 import {ReactComponent as MobileLogoIcon} from "../assets/logo/MobileLogoIcon.svg";
-import ProfileImage from "../apis/kong.jpg";
 import { LoginModal } from "./login/LoginModal";
 import {useAuthStore} from "../store/feature/authStore";
 import useDeviceQueries from "../hook/useDeviceQueries";

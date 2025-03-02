@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react';
 
 import {Outlet, useLocation, useNavigate} from "react-router-dom";
-import { NavigationBar } from "./NavigationBar";
+import { NavigationBar } from "../component/navigation/NavigationBar";
 import styled from "styled-components";
 import {HeaderLayout} from "./HeaderLayout";
 import {useAuthStore} from "../store/feature/authStore";
@@ -46,7 +46,6 @@ export const Layout = () => {
             <MainWrapper>
                 <NavigationBar
                     isLoggedIn={isLoggedIn}
-                    isNavOpen={isNavOpen}
                 />
                 <ContentWrapper isTablet={isTablet}>
                     <HeaderLayout
@@ -97,7 +96,6 @@ const ContentWrapper = styled.div<{ isTablet: boolean }>`
     ${({ isTablet }) =>
             isTablet && `
         height: 100vh;
-        padding: 20px;
         gap: 0;
     `}
 `;
