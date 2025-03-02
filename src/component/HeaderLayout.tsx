@@ -32,7 +32,7 @@ export const HeaderLayout = ({ onMenuClick, currentPage, onLogin }: HeaderLayout
 
     const {isMobile} = useDeviceQueries();
 
-    // ✅ 로그인 후 사용자 정보 가져오기 (컴포넌트 마운트 시 실행)
+    // 로그인 후 사용자 정보 가져오기 (컴포넌트 마운트 시 실행)
     useEffect(() => {
         if (isLoggedIn && !userInfo) {
             fetchUserInfo();
@@ -147,13 +147,13 @@ const HeaderContainer = styled.div`
   background-color: ${({ theme }) => theme.colors.coolGray10};
     
     ${media.tablet`
-    height: 72px;
-    padding: 16px 20px;
+        height: 72px;
+        padding: 16px 20px;
     `}
 
     ${media.phone`
-    height: 64px;
-    padding: 16px 16px;
+        height: 64px;
+        padding: 16px 16px;
         background-color: ${({ theme }: { theme: DefaultTheme }) => theme.colors.white};
   `}
 `;

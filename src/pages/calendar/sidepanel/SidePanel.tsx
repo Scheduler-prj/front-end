@@ -135,14 +135,7 @@ const PanelWrapper = styled.div`
         max-width: 60%;
         min-width: 240px;
     `}
-
-    ${media.tablet`
-        max-width: 380px;
-        padding: 16px;
-        gap: 32px;
-        align-self: center; /* 태블릿에서 중앙 정렬 */
-    `}
-
+   
     ${media.phone`
         display: none; /* 모바일에서는 숨김 */
     `}

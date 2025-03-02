@@ -72,6 +72,9 @@ const RoutineWrapper = styled.div`
     flex-direction: column;
     min-width: 310px;
     width: 100%;
+    height: 30%;
+    min-height: 35%;
+    max-height: 40%;
     padding: 24px;
     gap: 10px;
     align-items: flex-start;
@@ -79,6 +82,7 @@ const RoutineWrapper = styled.div`
     border-radius: 20px;
     background: #fff;
     box-shadow: 0px 4px 12px 0px rgba(239, 239, 246, 0.8);
+    overflow-y: auto;
 `;
 
 const Header = styled.div`

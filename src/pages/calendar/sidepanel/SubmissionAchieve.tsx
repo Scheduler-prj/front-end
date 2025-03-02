@@ -90,10 +90,12 @@ const Wrapper = styled.div`
     min-width: 310px;
     width: 100%;
     // max-width: 460px;
+    min-height: 30%;
     padding: 24px;
     border-radius: 20px;
     background: #fff;
     gap: 22px;
+    overflow-y: auto;
 `;
 
 const Header = styled.div`

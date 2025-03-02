@@ -114,8 +114,8 @@ export const Calendar = ({year, month, selectedTab}: CalendarProps) => {
                             ? day.tasks.filter(task => task.type === "plans") // "plans" 타입만 필터링
                             : day.tasks; // "all"이면 전체 출력
 
-                const tasksToDisplay = isLoggedIn ? filteredTasks.slice(0, 2) : [];
-                const moreCount = isLoggedIn ? filteredTasks.length - 2 : 0;
+                const tasksToDisplay = isLoggedIn ? filteredTasks.slice(0, 1) : [];
+                const moreCount = isLoggedIn ? filteredTasks.length - 1 : 0;
 
                 return (
                     <DayBox key={index} $isCurrentMonth={day.isCurrentMonth}>
@@ -151,6 +151,7 @@ export const Calendar = ({year, month, selectedTab}: CalendarProps) => {
 
 const CalendarGrid = styled.div`
     display: grid;
+    height: 100%;
     grid-template-columns: repeat(7, 1fr); /* 7열로 배치 */
     gap: 8px;
     //padding: 16px;
@@ -164,17 +165,26 @@ const DayBox = styled.div<{ $isCurrentMonth: boolean }>`
     align-items: flex-start;
     justify-content: flex-start;
     padding: 8px;
-    height: 140px;
+    height: auto;
     min-width: 70px;
     max-width: 140px;
-    gap: 12px;
+    gap: 0px;
     border-radius: 16px;
     opacity: ${({$isCurrentMonth}) => ($isCurrentMonth ? 1 : 0.4)};
     cursor: pointer;
+    box-sizing: border-box;
+    overflow: hidden;
 
-    //&:hover {
-    //  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.15);
-    //}
+    /* 모든 직계 자식에 마진 추가 */
+    & > * {
+        margin-top: 4px;
+        margin-bottom: 4px;
+    }
+    
+    /* 마지막 자식의 마진 제거 */
+    & > *:last-child {
+        margin-bottom: 0;
+    }
 `;
 
 const DayNumber = styled.div<{ $isToday: boolean }>`
@@ -182,7 +192,7 @@ const DayNumber = styled.div<{ $isToday: boolean }>`
     justify-content: center;
     align-items: center;
     width: 40px;
-    height: 40px;
+    height: auto;
     aspect-ratio: 1 / 1;  /*정사각형 유지 */
     border-radius: 50%;  /*정확한 원형 유지 */
     flex-shrink: 0;  /*부모 크기에 영향을 받지 않도록 설정 */
@@ -190,8 +200,9 @@ const DayNumber = styled.div<{ $isToday: boolean }>`
             $isToday ? theme.colors.primary : "transparent"};
     color: ${({ $isToday, theme }) =>
             $isToday ? theme.colors.white : theme.colors.black};
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
+    margin: 0; 
 `;
 
 const Tasks = styled.div`
@@ -200,7 +211,7 @@ const Tasks = styled.div`
     width: 100%;
     gap: 4px;
     overflow: hidden;
-    min-height: 80px; /* 최소 높이 설정하여 개수가 적어도 동일한 높이 유지 */
+    min-height: 60px; /* 최소 높이 설정하여 개수가 적어도 동일한 높이 유지 */
     min-width: 0;
 `;
 
@@ -282,5 +293,7 @@ const MoreTasks = styled.div`
     color: ${({ theme }) => theme.colors.primary};
     cursor: pointer;
     text-decoration: underline;
-    margin-top: 4px;
+    padding-bottom: 0; // 하단 패딩 제거
+    margin-left: 8px;
+    line-height: 1; // 줄 높이 최소화
 `;

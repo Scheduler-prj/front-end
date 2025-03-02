@@ -102,12 +102,14 @@ const ScheduleWrapper = styled.div`
     min-width: 310px;
     // max-width: 460px;
     width: 100%;
+    min-height: 30%;
     padding: 24px;
     align-items: flex-start;
     gap: 20px;
     align-self: stretch;
     border-radius: 20px;
     background: #fff; /* White */
+    overflow-y: auto;
 `;
 
 const Header = styled.div`
