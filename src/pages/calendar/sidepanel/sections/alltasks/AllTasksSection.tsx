@@ -104,7 +104,9 @@ export const AllTasksSection = ({onSubmit}:AllTasksSectionProps) => {
                     >
                         <TaskDate>{formatDate(task.todoAt)}</TaskDate>
                         <TaskContent>
-                            <TaskTitle>{task.title}</TaskTitle>
+                            <TaskTitleWrapper>
+                                <TaskTitle>{task.title}</TaskTitle>
+                            </TaskTitleWrapper>
                             <ButtonGroup>
                                 {activeTab === "incomplete" && (
                                     <SubmitButton onClick={() => handleSubmitClick(task)}>
@@ -130,13 +132,16 @@ const AllTasksWrapper = styled.div`
     display: flex;
     flex-direction: column;
     min-width: 310px;
-    max-width: 460px;
+    // max-width: 460px;
+    width: 100%;
+    min-height: 30%;
     padding: 24px;
     align-items: flex-start;
     gap: 20px;
     align-self: stretch;
     border-radius: 20px;
     background: #fff; /* White */
+    overflow-y: auto;
 `;
 
 const Header = styled.div`
@@ -190,10 +195,12 @@ const TaskItem = styled.li<{color: string}>`
 
 const TaskContent = styled.div`
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
     flex: 1;
-    width: 100%;
+    gap: 8px;
+    max-width: 100%;
+    min-width: 0;
 `;
 
 const ButtonGroup = styled.div`
@@ -211,7 +218,20 @@ const TaskDate = styled.div`
 `;
 
 const TaskTitle = styled(SubT1)`
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    flex-shrink: 1;
 `;
+
+const TaskTitleWrapper = styled.div`
+    flex: 1;  /* 텍스트가 가능한 최대 공간 차지 */
+    //max-width: calc(100% - 100px); /* 버튼 그룹 공간 확보 */
+    min-width: 30px;
+    overflow: hidden;
+`;
+
 
 const SubmitButton = styled.button`
     margin-right: 8px; /* 체크박스와 버튼 간격 설정 */
@@ -223,11 +243,32 @@ const SubmitButton = styled.button`
     cursor: pointer;
     font-size: 12px;
     font-weight: bold;
+
+    &:hover {
+        background-color: #E3EAFD; /* 호버 시 배경색 */
+        color: #3F51B5; /* 호버 시 텍스트 색상 */
+        border-color: #3F51B5; /* 호버 시 테두리 색상 */
+    }
+
+    &:active {
+        background-color: #D4D6EB; /* 클릭 시 배경색 */
+        border-color: #6373FF; /* 클릭 시 테두리 색상 */
+    }
+
+    &:disabled {
+        background-color: #F0F0F0; /* 비활성화 시 배경색 */
+        color: #A0A0A0; /* 비활성화 시 텍스트 색상 */
+        border-color: #D4D6EB; /* 비활성화 시 테두리 색상 */
+        cursor: not-allowed; /* 비활성화 상태 커서 */
+    }
 `;
 
 const Checkbox = styled.input`
-    width: 20px;
-    height: 20px;
+    width: 28px;
+    height: 28px;
+    margin-right: 12px;
+    cursor: pointer;
+    flex-shrink: 0;
 `;
 
 const CreateButton = styled(T6).attrs({ as: "button" })`

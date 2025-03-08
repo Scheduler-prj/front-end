@@ -27,9 +27,16 @@ const dummyTasks: Task[] = [
     { todoId: 1, title: "리액트 공부하기", todoAt: "2025-02-19T10:00:00Z", color: "#FFD8DA", planAlarm: true, planComment: "", completed: false },
     { todoId: 2, title: "스프링 공부하기", todoAt: "2025-02-19T10:00:00Z", color: "#FFE8C9", planAlarm: false, planComment: "", completed: true },
     { todoId: 3, title: "요리", todoAt: "2025-02-19T10:00:00Z", color: "#FFE8C9", planAlarm: false, planComment: "", completed: true },
-    //{ todoId: 4, title: "타스 공부하기", todoAt: "2025-02-20T10:00:00Z", color: "#D9E2FF" , planAlarm: true, planComment: "", completed: false },
-    //{ todoId: 5, title: "AI 공부하기", todoAt: "2025-02-20T10:00:00Z", color: "#D9E2FF" , planAlarm: true, planComment: "", completed: false },
+    { todoId: 4, title: "타스 공부하기", todoAt: "2025-02-20T10:00:00Z", color: "#D9E2FF" , planAlarm: true, planComment: "", completed: false },
+    { todoId: 5, title: "AI 공부하기", todoAt: "2025-02-20T10:00:00Z", color: "#D9E2FF" , planAlarm: true, planComment: "", completed: false },
     { todoId: 4, title: "타스 공부하기", todoAt: "2025-02-18T10:00:00Z", color: "#D9E2FF" , planAlarm: true, planComment: "", completed: false },
+    { todoId: 5, title: "문자열 일부러 길게 테스트으으으으으으응", todoAt: "2025-02-24T10:00:00Z", color: "#D9E2FF" , planAlarm: true, planComment: "", completed: false },
+    { todoId: 6, title: "문자열 일부러 길게 테스트으으으으으으응2", todoAt: "2025-02-24T10:00:00Z", color: "#FFE8C9" , planAlarm: true, planComment: "", completed: true },
+    { todoId: 7, title: "짧은 문자1", todoAt: "2025-02-24T10:00:00Z", color: "#FFE8C9" , planAlarm: true, planComment: "", completed: true },
+    { todoId: 8, title: "짧은 문자2", todoAt: "2025-03-08T10:00:00Z", color: "#FFE8C9" , planAlarm: true, planComment: "", completed: false },
+    { todoId: 9, title: "짧은 문자3", todoAt: "2025-03-08T10:00:00Z", color: "#FFE8C9" , planAlarm: true, planComment: "", completed: false },
+    { todoId: 10, title: "짧은 문자4", todoAt: "2025-03-08T10:00:00Z", color: "#D9E2FF" , planAlarm: true, planComment: "", completed: false },
+    { todoId: 11, title: "짧은 문자5", todoAt: "2025-03-08T10:00:00Z", color: "#D9E2FF" , planAlarm: true, planComment: "", completed: false },
 ];
 
 export const useTasksStore = create<TasksState>((set) => ({

@@ -1,21 +1,27 @@
 import {useState, useEffect} from 'react';
 
 import {Outlet, useLocation, useNavigate} from "react-router-dom";
-import { NavigationBar } from "./NavigationBar";
+import { NavigationBar } from "../component/navigation/NavigationBar";
 import styled from "styled-components";
 import {HeaderLayout} from "./HeaderLayout";
 import {useAuthStore} from "../store/feature/authStore";
+import {media} from "../styles/media";
+import useDeviceQueries from "../hook/useDeviceQueries";
 
 export const Layout = () => {
     const location = useLocation();
     const navigate = useNavigate();
-    const { isLoggedIn } = useAuthStore(); // ✅ Zustand 활용
-    const [loginState, setLoginState] = useState(isLoggedIn); // ✅ 로그인 상태 관리
-    const handleLogin = () => setLoginState(true); // ✅ 로그인 처리 함수
+    const { isLoggedIn } = useAuthStore(); // Zustand 활용
+    const [loginState, setLoginState] = useState(isLoggedIn); // 로그인 상태 관리
+    const handleLogin = () => setLoginState(true); // 로그인 처리 함수
 
-    // const handleLogin = () => setIsLoggedIn(true); // 로그인 상태 변경
+    const { isTablet } = useDeviceQueries(); // 태블릿인지 확인
 
-    // ✅ "/" 경로로 접근하면 "/calendar"로 리다이렉트
+    // 모바일 네비게이션 바 상태 관리 (햄버거 버튼 클릭시 토글)
+    const [isNavOpen, setIsNavOpen] = useState(false);
+    const toggleNav = () => setIsNavOpen(!isNavOpen);
+
+    // "/" 경로로 접근하면 "/calendar"로 리다이렉트
     useEffect(() => {
         if (location.pathname === "/") {
             navigate("/calendar", { replace: true });
@@ -38,33 +44,66 @@ export const Layout = () => {
         <AppWrapper>
             {/* 네비게이션 바와 콘텐츠 영역 */}
             <MainWrapper>
-                <NavigationBar isLoggedIn={isLoggedIn}/>
-                <ContentWrapper>
+                <NavigationBar
+                    isLoggedIn={isLoggedIn}
+                />
+                <ContentWrapper isTablet={isTablet}>
                     <HeaderLayout
                         currentPage={currentPage}
                         isLoggedIn={loginState} // 추가
                         onLogin={handleLogin}   // 추가
+                        onMenuClick={toggleNav}
                     />
-                    <Outlet />
+                    <PageContainer> {/* Outlet 감싸기 */}
+                        <Outlet context={{ isTablet }} />
+                    </PageContainer>
                 </ContentWrapper>
             </MainWrapper>
         </AppWrapper>
     );
 };
 
+// <HeaderLayout
+//     currentPage={currentPage}
+//     isLoggedIn={loginState} // 추가
+//     onLogin={handleLogin}   // 추가
+// />
+
+
 const AppWrapper = styled.div`
     display: flex;
     height: 100vh;
     flex-direction: column;
+    overflow: hidden;
 `;
 
 const MainWrapper = styled.div`
   display: flex;
   flex: 1; /* 나머지 공간을 채움 */
+  height: 100%;
+  overflow: hidden;
 `;
 
-const ContentWrapper = styled.div`
-  flex: 1; /* NavigationBar 를 제외한 나머지 공간 채움 */
-  overflow: auto; /* 스크롤 가능하도록 설정 */
-  background-color:  ${({ theme }) => theme.colors.coolGray10};
+const ContentWrapper = styled.div<{ isTablet: boolean }>`
+    width: 100%;
+    height: 100%;
+    flex: 1; /* NavigationBar 를 제외한 나머지 공간 채움 */
+    display: flex;
+    flex-direction: column; /* HeaderLayout과 Outlet을 위아래로 배치 */
+    overflow: hidden; /* 스크롤 가능하도록 설정 */
+    background-color:  ${({ theme }) => theme.colors.coolGray10};
+
+    ${({ isTablet }) =>
+            isTablet && `
+        height: 100vh;
+        gap: 0;
+    `}
+`;
+
+const PageContainer = styled.div`
+  flex: 1; /* HeaderLayout 아래의 나머지 공간을 차지 */
+  display: flex; /* 내부 요소 정렬을 유지 */
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 `;

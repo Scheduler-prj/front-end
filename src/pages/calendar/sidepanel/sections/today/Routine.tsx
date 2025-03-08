@@ -52,7 +52,9 @@ export const Routine = ({ onCreate }: { onCreate: () => void }) => {
                         key={routine.routine_id}
                         $completed={routine.isClear}
                     >
-                        <TaskTitle>{routine.title}</TaskTitle>
+                        <TaskTitleWrapper>
+                            <TaskTitle>{routine.title}</TaskTitle>
+                        </TaskTitleWrapper>
                         <Checkbox
                             type="checkbox"
                             checked={routine.isClear}
@@ -69,7 +71,10 @@ const RoutineWrapper = styled.div`
     display: flex;
     flex-direction: column;
     min-width: 310px;
-    max-width: 460px;
+    width: 100%;
+    height: 30%;
+    min-height: 35%;
+    max-height: 40%;
     padding: 24px;
     gap: 10px;
     align-items: flex-start;
@@ -77,6 +82,7 @@ const RoutineWrapper = styled.div`
     border-radius: 20px;
     background: #fff;
     box-shadow: 0px 4px 12px 0px rgba(239, 239, 246, 0.8);
+    overflow-y: auto;
 `;
 
 const Header = styled.div`
@@ -115,17 +121,18 @@ const RoutineItem = styled.li<{ $completed: boolean }>`
     justify-content: space-between; /* 체크박스와 텍스트를 양쪽에 배치 */
     align-items: center;
     min-width: 262px;
-    max-width: 412px;
+    width: 100%;
     padding: 12px 12px 12px 20px;
     gap: 12px;
     align-self: stretch;
+    text-align: left;
     border-radius: 8px;
     background-color: ${({ $completed, theme }) =>
             $completed ? theme.colors.coolGray10 : "#FFFFFF"}; /* 완료 여부에 따른 배경색 */
     border: ${({ $completed, theme }) =>
             $completed ? "none" : "0.4px solid #2D2D2D"}; /* 완료되지 않은 경우 테두리 추가 */
     margin-bottom: 8px; /* 아이템 간격 추가 */
-
+    
     &:last-child {
         margin-bottom: 0; /* 마지막 아이템은 간격 제거 */
     }
@@ -140,6 +147,11 @@ const Checkbox = styled.input`
 `;
 
 const TaskTitle = styled(B3)`
+    display: block;
+    // min-width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 `;
 
 const NoDataMessage = styled.p`
@@ -148,4 +160,9 @@ const NoDataMessage = styled.p`
     text-align: center;
     width: 100%;
     margin-top: 20px;
+`;
+
+const TaskTitleWrapper = styled.div`
+    flex: 1;  /* 텍스트가 가능한 최대 공간 차지 */
+    min-width: 0; /* ellipsis 적용 필수 */
 `;

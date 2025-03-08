@@ -145,7 +145,11 @@ export const TaskCreation = ({ onBack }: { onBack: () => void }) => {
                 </Label>
                 <Divider />
                 <ColorSelector>
-                    <span>컬러 선택</span>
+                    <span style={{
+                        whiteSpace: "nowrap",
+                        lineHeight: "1",
+                        marginTop: "3px"
+                    }}>컬러 선택</span>
                     <ColorOptions>
                         {/* theme.tsx 에서 가져온 색상들 출력 */}
                         {colors.map((color, index) => (
@@ -185,9 +189,9 @@ export const TaskCreation = ({ onBack }: { onBack: () => void }) => {
 const CreationWrapper = styled.div`
     display: flex;
     flex-direction: column;
-    width: 460px;
+    width: 100%;
     min-width: 310px;
-    max-width: 460px;
+    // max-width: 460px;
     padding: 24px;
     align-items: flex-start;
     gap: 10px;
@@ -209,7 +213,7 @@ const DateSelector = styled.div`
     align-items: center; /* 세로축 중앙 정렬 */
     align-self: stretch; /* 부모 요소 너비에 맞춤 */
     min-width: 214px; /* 최소 너비 */
-    max-width: 364px; /* 최대 너비 */
+    //max-width: 364px; /* 최대 너비 */
     width: 100%; /* 기본적으로 부모에 맞춤 */
     gap: 8px; /* 요소 간 간격 */
 `;
@@ -303,13 +307,21 @@ const ColorSelector = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center; /* 수직 중앙 정렬 */
-    gap: 8px;
+    gap: 14px;
     width: 100%;
 `;
 
 const ColorOptions = styled.div`
     display: flex;
     gap: 8px;
+    overflow-x: auto;
+    white-space: nowrap;
+    flex-grow: 1;
+    max-width: 100%;
+    
+    &::-webkit-scrollbar-track {
+        background: #f0f0f0;
+    }
 `;
 
 const ColorCircle = styled.div<{ color: string; selected: boolean }>`
@@ -336,7 +348,7 @@ const CheckboxWrapper = styled.div`
 const LabelInline = styled.div`
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 16px;
     align-self: stretch;
 `;
 

@@ -104,7 +104,9 @@ export const TodayTasks = ({ onCreateTask, onSubmit }: TaskProps) => {
                             >
                                 <TaskDate>{formatDate(task.todoAt)}</TaskDate>
                                 <TaskContent>
-                                    <TaskTitle>{task.title}</TaskTitle>
+                                    <TaskTitleWrapper>
+                                        <TaskTitle>{task.title}</TaskTitle>
+                                    </TaskTitleWrapper>
                                     <ButtonGroup>
                                         <SubmitButton onClick={() => handleSubmitClick(task)}>
                                             성과 제출
@@ -129,7 +131,10 @@ const TasksWrapper = styled.div`
     display: flex;
     flex-direction: column;
     min-width: 310px;
-    max-width: 460px;
+    width: 100%;
+    height: 30%;
+    min-height: 35%;
+    max-height: 40%;
     padding: 24px;
     gap: 10px;
     align-items: flex-start;
@@ -137,6 +142,7 @@ const TasksWrapper = styled.div`
     border-radius: 20px;
     background: #fff;
     box-shadow: 0px 4px 12px 0px rgba(239, 239, 246, 0.8);
+    overflow-y: auto;
 `;
 
 // 완료/미완료 섹션 헤더 스타일
@@ -195,6 +201,7 @@ const ButtonGroup = styled.div`
 
 const TaskItem = styled.li<{ $completed: boolean; color: string }>`
     width: 100%;
+    max-width: 100%;
     display: flex;
     align-items: center;
     gap: 12px;
@@ -225,10 +232,23 @@ const TaskContent = styled.div`
     align-items: center;
     flex: 1;
     gap: 8px;
-    width: 100%;
+    max-width: 100%;
+    min-width: 0;
 `;
 
 const TaskTitle = styled(SubT1)`
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    flex-shrink: 1;
+`;
+
+const TaskTitleWrapper = styled.div`
+    flex: 1;  /* 텍스트가 가능한 최대 공간 차지 */
+    //max-width: calc(100% - 100px); /* 버튼 그룹 공간 확보 */
+    min-width: 40px;
+    overflow: hidden;
 `;
 
 const Checkbox = styled.input`
@@ -236,6 +256,7 @@ const Checkbox = styled.input`
     height : 28px;
     margin-right: 12px;
     cursor: pointer;
+    flex-shrink: 0;
 `;
 
 const SubmitButton = styled.button`
@@ -247,7 +268,8 @@ const SubmitButton = styled.button`
     cursor: pointer;
     font-size: 12px;
     font-weight: bold; /* 텍스트 강조 */
-    margin-left: 56px;
+    min-width: 76px;
+    flex-shrink: 1;
 
     &:hover {
         background-color: #E3EAFD; /* 호버 시 배경색 */

@@ -87,13 +87,15 @@ export const SubmissionAchieve = ({ task, onBack, onSubmit }: SubmissionProps) =
 const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
-    width: 460px;
     min-width: 310px;
-    max-width: 460px;
+    width: 100%;
+    // max-width: 460px;
+    min-height: 30%;
     padding: 24px;
     border-radius: 20px;
     background: #fff;
     gap: 22px;
+    overflow-y: auto;
 `;
 
 const Header = styled.div`

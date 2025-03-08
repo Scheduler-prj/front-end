@@ -1,18 +1,21 @@
 import React, {useState, useEffect} from "react";
-import styled from "styled-components";
+import styled, { DefaultTheme }  from "styled-components";
 import {ReactComponent as NotificationIcon} from "../assets/icons/header/NotificationIcon.svg";
-import ProfileImage from "../apis/kong.jpg";
+import {ReactComponent as NavMenuIcon} from "../assets/icons/navigation-bar/NavMenuIcon.svg";
+import {ReactComponent as MobileLogoIcon} from "../assets/logo/MobileLogoIcon.svg";
 import { LoginModal } from "./login/LoginModal";
 import {useAuthStore} from "../store/feature/authStore";
-
+import useDeviceQueries from "../hook/useDeviceQueries";
+import {media} from "../styles/media";
 
 type HeaderLayoutProps = {
     currentPage : string;  // currentPage 는 문자열 타입
     isLoggedIn : boolean;
     onLogin : (token: string) => void; // (토큰을 받을 수 있도록)
+    onMenuClick : () => void;
 };
 
-export const HeaderLayout = ({ currentPage, onLogin }: HeaderLayoutProps) => {
+export const HeaderLayout = ({ onMenuClick, currentPage, onLogin }: HeaderLayoutProps) => {
     /**
      * renderHeaderContent
      * - 현재 페이지(`currentPage`) 값에 따라 헤더 좌측 영역에 렌더링할 콘텐츠를 결정합니다.
@@ -26,7 +29,9 @@ export const HeaderLayout = ({ currentPage, onLogin }: HeaderLayoutProps) => {
     // accessToken 이 존재하면 로그인 상태로 설정
     const isLoggedIn = !!accessToken;
 
-    // ✅ 로그인 후 사용자 정보 가져오기 (컴포넌트 마운트 시 실행)
+    const {isMobile} = useDeviceQueries();
+
+    // 로그인 후 사용자 정보 가져오기 (컴포넌트 마운트 시 실행)
     useEffect(() => {
         if (isLoggedIn && !userInfo) {
             fetchUserInfo();
@@ -65,12 +70,26 @@ export const HeaderLayout = ({ currentPage, onLogin }: HeaderLayoutProps) => {
 
     return (
         <HeaderContainer>
+            {/* 모바일(767px 이하)에서는 햄버거 버튼 추가 */}
+            <LeftSection>
+            {isMobile && (
+                <MenuButton onClick={onMenuClick}>
+                    <NavMenuIcon />
+                </MenuButton>
+            )}
+            {isMobile && (
+                <LogoContainer>
+                    <MobileLogoIcon />
+                </LogoContainer>
+            )}
+            </LeftSection>
+
             <LeftSection>{renderHeaderContent()}</LeftSection>
             <RightSection>
                 <Icon>
                     <NotificationIcon />
                 </Icon>
-                {isLoggedIn && userInfo ? (
+                {!isMobile && isLoggedIn && userInfo ? (
                     <Profile>
                         <img
                             src={userInfo.profile}
@@ -78,26 +97,64 @@ export const HeaderLayout = ({ currentPage, onLogin }: HeaderLayoutProps) => {
                             referrerPolicy="no-referrer"
                         />
                     </Profile>
-                ) : (
+                ) : !isMobile && (
                     <LoginButton onClick={handleLoginButtonClick}>Log in</LoginButton>
                 )}
-                {isLoginModalOpen && (
-                    <LoginModal onClose={handleModalClose} onLogin={handleLoginSuccess} />
-                )}
             </RightSection>
+
+            {isLoginModalOpen && (
+                <LoginModal onClose={handleModalClose} onLogin={handleLoginSuccess} />
+            )}
         </HeaderContainer>
     );
 };
+
+// return (
+//     <HeaderContainer>
+//         <LeftSection>{renderHeaderContent()}</LeftSection>
+//         <RightSection>
+//             <Icon>
+//                 <NotificationIcon />
+//             </Icon>
+//             {isLoggedIn && userInfo ? (
+//                 <Profile>
+//                     <img
+//                         src={userInfo.profile}
+//                         alt="Profile"
+//                         referrerPolicy="no-referrer"
+//                     />
+//                 </Profile>
+//             ) : (
+//                 <LoginButton onClick={handleLoginButtonClick}>Log in</LoginButton>
+//             )}
+//             {isLoginModalOpen && (
+//                 <LoginModal onClose={handleModalClose} onLogin={handleLoginSuccess} />
+//             )}
+//         </RightSection>
+//     </HeaderContainer>
+// );
 
 const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-    width: 100%; /* 화면 전체 너비 */
-    min-height: 60px; /* 최소 높이 */
+    width: 99%; /* 화면 전체 너비 */
+    //max-width: 1560px;
+    //min-height: 60px; /* 최소 높이 */
   align-self: stretch;
   padding: 16px 24px; /* 필요에 따라 패딩 조정 */
   background-color: ${({ theme }) => theme.colors.coolGray10};
+    
+    ${media.tablet`
+        height: 72px;
+        padding: 16px 20px;
+    `}
+
+    ${media.phone`
+        height: 64px;
+        padding: 16px 16px;
+        background-color: ${({ theme }: { theme: DefaultTheme }) => theme.colors.white};
+  `}
 `;
 
 const Icon = styled.div`
@@ -160,3 +217,34 @@ const LoginButton = styled.button`
         transform: scale(0.98); /* 클릭 시 살짝 눌리는 효과 */
     }
 `;
+
+const LogoContainer = styled.div`
+    flex: 1;
+    display: flex;
+    justify-content: center;
+
+    ${media.phone`
+    justify-content: flex-start; /* 모바일에서는 왼쪽 정렬 */
+  `}
+
+    img {
+        width: 100%;
+        max-width: 117px;
+
+        ${media.phone`
+        max-width: 100px; /* 모바일에서는 크기 줄이기 */
+    `}
+    }
+`;
+
+const MenuButton = styled.button`
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`;
+

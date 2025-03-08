@@ -11,12 +11,14 @@ interface LoginModalProps {
 }
 
 export const LoginModal = ({onClose, onLogin}: LoginModalProps) => {
+    const baseURL = process.env.REACT_APP_BASEURL;  // 백엔드 URL
 
     const handleSocialLogin = (provider: "google" | "kakao" | "naver") => {
         onClose();  // 모달 달기
-        const baseURL = "http://localhost:8080"; // 백엔드 URL
+        console.log(';;;',baseURL);
         // const redirectURI = `url`; // 소셜 로그인 성공 후 프론트엔드 경로
-        window.location.href = `${baseURL}/oauth2/authorization/${provider}`;
+        // window.location.href = `http://localhost:8080/oauth2/authorization/${provider}`;
+        window.location.href = `${baseURL}oauth2/authorization/${provider}`;
     }
 
     return (
