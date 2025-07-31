@@ -59,8 +59,12 @@ const ArrowBtn = styled.button`
 `;
 
 const MonthTitle = styled.div`
-  font-size: 16px;
-  color: black;
+  color: var(--Cool-Gray-1-585868, color(display-p3 0.3442 0.3442 0.4069));
+  font-family: Pretendard;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 140%; /* 19.6px */
 `;
 
 const CalendarGrid = styled.div`
@@ -79,12 +83,12 @@ const CalendarDay = styled.div`
   font-size: 14px;
 
   &:hover {
-    background-color: #4a90e2;
+    background-color: #6373FF;
     color: white;
   }
 
   &.selected {
-    background-color: #4a90e2;
+    background-color: #6373FF;
     color: white;
     font-weight: bold;
   }
@@ -154,9 +158,11 @@ const App: React.FC = () => {
       {isOpen && (
         <Calendar>
           <CalendarHeader>
-            <ArrowBtn onClick={handlePreviousMonth}>◀</ArrowBtn>
             <MonthTitle>{monthYear}</MonthTitle>
-            <ArrowBtn onClick={handleNextMonth}>▶</ArrowBtn>
+            <div>
+             <ArrowBtn onClick={handlePreviousMonth}>{'<'}</ArrowBtn>
+             <ArrowBtn onClick={handleNextMonth}>{'>'}</ArrowBtn>
+            </div>
           </CalendarHeader>
           <CalendarGrid>
             {days.map((day) => (

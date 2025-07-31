@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { SubHeaderContainer } from '../subAccomplish/style';
 
 
 export const TodayContainer = styled.div`
@@ -47,3 +48,35 @@ export const TodayButton=styled.button`
     background-color: #4252E5; /* Hover 상태 색상 */
   }
 `
+
+//mobile
+export const CardContainerM = styled.div`
+  display: flex;
+  /* align-items: center; */
+  align-self: stretch;
+
+  border-radius: 12px;
+  background: var(--White-FFFFFF, #FFF);
+  box-shadow: 1px 1px 20px 0px rgba(0, 0, 0, 0.04);
+`;
+
+export const CardColor = styled.div`
+  width: 16px;
+  align-self:stretch;
+  background-color: #F3E3FF;
+`
+export const CardMain = styled.div`
+  display: flex;
+  padding:16px;
+  justify-content:space-between;
+  align-items:flex-end;
+  flex-grow:1;
+`;
+export const CardTextContainer = styled.div`
+  display:flex;
+  flex-direction:column;
+  flex-grow:1;
+`
+export const TodayButtonM= styled(TodayButton)`
+  padding:8px 16px;
+`;

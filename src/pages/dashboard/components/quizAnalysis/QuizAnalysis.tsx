@@ -70,8 +70,9 @@ export const QuizAnalysis = () => {
                   <B5 style={{color:'#9CA0C3'}}>11.3(일)</B5>
                 </S.WrongCard>
               </Column>
-              <img src={Under} alt="alt" style={{width:'40px'}}></img>
+              <img src={Under} alt="alt" style={{width:'40px',alignSelf:'center'}}></img>
             </S.WrongWrapper>
+
           </S.AnalysisMain>
         </S.AnalysisContainer>
        </>

@@ -89,3 +89,50 @@ cursor: pointer;
 /* background: var(--Cool-Gray-7-E3E3FF, color(display-p3 0.8903 0.8903 1)); */
 }
 `
+
+
+//mobile
+export const SubMainM=styled.div`
+  align-self:stretch;
+  display: flex;
+  flex-direction: column;
+  gap:16px;
+`
+export const CardContainerM= styled.div`
+  display: flex;
+  width:100%;
+  border-radius: 12px;
+  background: var(--White-FFFFFF, #FFF);
+  box-shadow: 1px 1px 20px 0px rgba(0, 0, 0, 0.04);
+`;
+export const CardColor = styled.div`
+  width: 16px;
+  align-self:stretch;
+  background-color: #F3E3FF;
+`
+export const CardMainM = styled.div`
+max-width:calc(100% - 16px);
+  padding:16px;
+ flex-grow:1;
+ display:flex;
+ flex-direction:column;
+ gap:8px;
+`;
+export const CardTop = styled.div`
+  display:flex;
+  gap:2px;
+`;
+export const CardTopText= styled.div`
+  flex-grow:1;
+`;
+export const CardBottom = styled.div`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  
+  color: var(--Black-2D2D2D, #2D2D2D);
+  font-family: Pretendard;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+`;

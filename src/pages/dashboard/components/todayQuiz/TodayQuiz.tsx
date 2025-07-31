@@ -2,11 +2,15 @@ import React from "react";
 import * as S from "./style";
 import Row from "../../../../styles/Layouts/Row";
 import Column from '../../../../styles/Layouts/Column';
-import { H2,T6 ,B6,T7} from "../../../../styles/Typography";
+import { H2,T6 ,B6,T7,Cap2} from "../../../../styles/Typography";
 import Back from '../../Back.svg'
 import { theme } from "../../../../styles/theme"
+// import useDeviceQueries from '../../../../hook/useDeviceQueries' 
+import { useMediaQuery } from "react-responsive";
+
 
 export const TodayQuiz = () => {
+  const isMobile = useMediaQuery({ maxWidth: 767, minWidth: 360 });
     return (
        <>
         <S.TodayContainer>
@@ -17,7 +21,8 @@ export const TodayQuiz = () => {
             </Row>
             <img src={Back} alt="alt"></img>
           </Row>
-          <Row verticalAlign="center" style={{gap:'2.85%',overflowX:'auto'}} >
+          {!isMobile ?
+            <Row verticalAlign="center" style={{gap:'2.85%',overflowX:'auto'}} >
             <S.CardContainer>
               <S.CardTop></S.CardTop>
               <Column style={{marginBottom:'54px'}}>
@@ -63,6 +68,24 @@ export const TodayQuiz = () => {
               </S.TodayButton>
             </S.CardContainer>
           </Row>
+          :
+          <Column>
+            <S.CardContainerM>
+              <S.CardColor/>
+              <S.CardMain>
+                <S.CardTextContainer>
+                  <Cap2 style={{color:'#9CA0C3'}}>교양</Cap2>
+                  <B6 style={{color:'#2D2D2D'}}>퀴즈 제목</B6>
+                  <Cap2 style={{color:'#2D2D2D'}}>25문항</Cap2>
+                </S.CardTextContainer>
+                <div>
+                  <S.TodayButtonM>문제 풀기</S.TodayButtonM>
+                </div>
+              </S.CardMain>
+            </S.CardContainerM>
+          </Column>
+          }
+          
         </S.TodayContainer>
        </>
     );

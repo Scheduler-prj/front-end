@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { media } from "../../../../styles/media";
 
 export const AnalysisContainer =styled.div`
   display: flex;
@@ -17,6 +18,12 @@ export const AnalysisMain=styled.div`
   /* gap: 20px; */
   gap:2.85%;
   flex-wrap: wrap;
+
+  ${media.phone`
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+  `}
 `
 
 export const InfoWrapper =styled.div`
@@ -34,6 +41,10 @@ export const InfoWrapper =styled.div`
   /* background: var(--White-FFFFFF, color(display-p3 1 1 1)); */
   box-shadow: 1px 1px 20px 0px rgba(0, 0, 0, 0.04);
   /* box-shadow: 1px 1px 20px 0px color(display-p3 0 0 0 / 0.04); */
+
+  ${media.phone`
+    width:100%;
+`}
 `
 
 export const InfoContainer =styled.div`
@@ -68,7 +79,7 @@ box-shadow: 1px 1px 20px 0px color(display-p3 0 0 0 / 0.04);
   display:flex;
   flex-direction:column;
   justify-content:center;
-  
+
 `
 
 export const WrongCard =styled.div`
@@ -88,4 +99,9 @@ export const ChartWrapper=styled.div`
   width:52.57%;
   align-self:stretch;
   /* flex-shrink:0; */
+
+  ${media.phone`
+    width:100%;
+`}
+
 `
